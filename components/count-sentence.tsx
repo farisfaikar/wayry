@@ -48,66 +48,62 @@ export default function CountSentence({ className = "", data }: CountSentencePro
 
   const togglePlaying = () => {
     setIsPlaying(!isPlaying);
-  }
+  };
 
   const resetTimer = () => {
     setElapsedTime(0);
     setSentenceCount(0);
     setSentencesPerMinute(0);
     setIsPlaying(false);
-  }
+  };
 
   return (
     <div className={className}>
       <Button
-        className="text-3xl font-bold text-center w-full p-10 text-wrap"
+        className="w-full text-wrap p-10 text-center text-3xl font-bold"
         onClick={handleButtonClick} // Use the click handler function
         disabled={!isPlaying}
       >
         {data.sentence}
       </Button>
-      <div className="flex flex-col gap-2 mt-5">
-        <div className="flex gap-2 items-center justify-between">
+      <div className="mt-5 flex flex-col gap-2">
+        <div className="flex items-center justify-between gap-2">
           <p className="text-neutral-500">Person</p>
           <p className="text-xl font-bold">{data.person !== "" ? data.person : <i>Unknown</i>}</p>
         </div>
-        <div className="flex gap-2 items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <p className="text-neutral-500">Sentence count</p>
           <p className="text-xl font-bold">{sentenceCount}</p>
         </div>
-        <div className="flex gap-2 items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <p className="text-neutral-500">Elapsed Time</p>
           <p className="text-xl font-bold">{elapsedTime} seconds</p>
         </div>
-        <div className="flex gap-2 items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <p className="text-neutral-500">Sentences Per Minute</p>
           <p className="text-xl font-bold">{sentencesPerMinute.toFixed(2)}</p>
         </div>
       </div>
-      <div className="flex sm:flex-row flex-col justify-between mt-5 gap-5">
+      <div className="mt-5 flex flex-col justify-between gap-5 sm:flex-row">
         <Button
           variant={isPlaying ? "outline" : "default"}
-          className="flex gap-2 w-full"
+          className="flex w-full gap-2"
           onClick={togglePlaying}
         >
           {isPlaying ? (
-            <><Pause /> Pause</>
+            <>
+              <Pause /> Pause
+            </>
           ) : (
-            <><Play /> {elapsedTime === 0 ? "Start" : "Continue"}</>
+            <>
+              <Play /> {elapsedTime === 0 ? "Start" : "Continue"}
+            </>
           )}
         </Button>
-        <Button
-          variant="outline"
-          className="flex gap-2 w-full"
-          onClick={resetTimer}
-        >
+        <Button variant="outline" className="flex w-full gap-2" onClick={resetTimer}>
           <RotateCcw /> Reset
         </Button>
-        <Button
-          variant="outline"
-          className="flex gap-2 w-full"
-          disabled
-        >
+        <Button variant="outline" className="flex w-full gap-2" disabled>
           <Save /> Save
         </Button>
       </div>

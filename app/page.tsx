@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import SentenceForm from '@/components/sentence-form';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import SentenceForm from "@/components/sentence-form";
 
 type FormDataType = {
   sentence: string;
@@ -15,12 +15,14 @@ export default function Home() {
 
   const handleFormSubmit = (data: FormDataType) => {
     setFormData(data);
-    router.push(`/count?sentence=${encodeURIComponent(data.sentence)}&person=${encodeURIComponent(data.person || '')}`);
+    router.push(
+      `/count?sentence=${encodeURIComponent(data.sentence)}&person=${encodeURIComponent(data.person || "")}`,
+    );
   };
 
   return (
-    <main className="max-w-2xl mx-auto p-5">
-      <h1 className="text-4xl font-extrabold flex justify-center text-center p-5 mt-10">
+    <main className="mx-auto max-w-2xl p-5">
+      <h1 className="mt-10 flex justify-center p-5 text-center text-4xl font-extrabold">
         Why Are You Repeating Yourself?
       </h1>
       <SentenceForm onSubmit={handleFormSubmit} />
