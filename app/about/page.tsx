@@ -1,24 +1,12 @@
-"use client";
+import VideoPlayer from "@/components/video-player";
+import type { Metadata } from "next";
 
-import { useRef, useState } from "react";
-import { Play, Pause } from "lucide-react";
+export const metadata: Metadata = {
+    title: "Why Did You Bother To Read The About Page?",
+    description: "Just why exactly?",
+};
 
 export default function About() {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-
-    const handlePlayPause = () => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.pause();
-                setIsPlaying(false);
-            } else {
-                videoRef.current.play();
-                setIsPlaying(true);
-            }
-        }
-    };
-
     return (
         <main className="max-w-2xl mx-auto p-5">
             <h1 className="text-4xl font-extrabold flex justify-center text-center p-5 mt-10">
@@ -45,20 +33,7 @@ export default function About() {
             <p className="mt-10">
                 <i>Complimentary video:</i>
             </p>
-            <div className="flex justify-center mt-5 relative">
-                <video
-                    ref={videoRef}
-                    src="/videos/you-good-bro.mp4"
-                    className="w-full"
-                    playsInline
-                />
-                <button
-                    onClick={handlePlayPause}
-                    className={`absolute inset-0 flex items-center justify-center bg-black ${isPlaying ? 'bg-opacity-0' : 'bg-opacity-50'} text-white text-6xl font-bold`}
-                >
-                    {isPlaying ? <Pause size={48} className="opacity-0" /> : <Play size={48} />}
-                </button>
-            </div>
+            <VideoPlayer src="/videos/you-good-bro.mp4"/>
         </main>
     );
 }
