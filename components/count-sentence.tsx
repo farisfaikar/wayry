@@ -1,61 +1,61 @@
-import { Button } from "@/components/ui/button";
-import { useState, useEffect, useRef } from "react";
-import { Play, Pause, RotateCcw, Save } from "lucide-react";
+import { Button } from '@/components/ui/button'
+import { useState, useEffect, useRef } from 'react'
+import { Play, Pause, RotateCcw, Save } from 'lucide-react'
 
 type CountSentenceProps = {
-  className?: string;
+  className?: string
   data: {
-    person: string;
-    sentence: string;
-  };
-};
+    person: string
+    sentence: string
+  }
+}
 
-export default function CountSentence({ className = "", data }: CountSentenceProps) {
-  const [sentenceCount, setSentenceCount] = useState(0);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [sentencesPerMinute, setSentencesPerMinute] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+export default function CountSentence({ className = '', data }: CountSentenceProps) {
+  const [sentenceCount, setSentenceCount] = useState(0)
+  const [elapsedTime, setElapsedTime] = useState(0)
+  const [sentencesPerMinute, setSentencesPerMinute] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   // Start the timer when the component mounts
   useEffect(() => {
     if (isPlaying) {
       intervalRef.current = setInterval(() => {
-        setElapsedTime((prevTime) => prevTime + 1);
-      }, 1000); // Update every second
+        setElapsedTime((prevTime) => prevTime + 1)
+      }, 1000) // Update every second
     }
 
     // Cleanup the interval on component unmount
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+        clearInterval(intervalRef.current)
       }
-    };
-  }, [isPlaying]);
+    }
+  }, [isPlaying])
 
   // Calculate sentences per minute
   useEffect(() => {
     if (elapsedTime > 0) {
-      const rate = (sentenceCount / elapsedTime) * 60;
-      setSentencesPerMinute(rate);
+      const rate = (sentenceCount / elapsedTime) * 60
+      setSentencesPerMinute(rate)
     }
-  }, [sentenceCount, elapsedTime]);
+  }, [sentenceCount, elapsedTime])
 
   // Function to handle button click
   const handleButtonClick = () => {
-    setSentenceCount((prevCount) => prevCount + 1);
-  };
+    setSentenceCount((prevCount) => prevCount + 1)
+  }
 
   const togglePlaying = () => {
-    setIsPlaying(!isPlaying);
-  };
+    setIsPlaying(!isPlaying)
+  }
 
   const resetTimer = () => {
-    setElapsedTime(0);
-    setSentenceCount(0);
-    setSentencesPerMinute(0);
-    setIsPlaying(false);
-  };
+    setElapsedTime(0)
+    setSentenceCount(0)
+    setSentencesPerMinute(0)
+    setIsPlaying(false)
+  }
 
   return (
     <div className={className}>
@@ -69,7 +69,7 @@ export default function CountSentence({ className = "", data }: CountSentencePro
       <div className="mt-5 flex flex-col gap-2">
         <div className="flex items-center justify-between gap-2">
           <p className="text-neutral-500">Person</p>
-          <p className="text-xl font-bold">{data.person !== "" ? data.person : <i>Unknown</i>}</p>
+          <p className="text-xl font-bold">{data.person !== '' ? data.person : <i>Unknown</i>}</p>
         </div>
         <div className="flex items-center justify-between gap-2">
           <p className="text-neutral-500">Sentence count</p>
@@ -86,7 +86,7 @@ export default function CountSentence({ className = "", data }: CountSentencePro
       </div>
       <div className="mt-5 flex flex-col justify-between gap-5 sm:flex-row">
         <Button
-          variant={isPlaying ? "outline" : "default"}
+          variant={isPlaying ? 'outline' : 'default'}
           className="flex w-full gap-2"
           onClick={togglePlaying}
         >
@@ -96,7 +96,7 @@ export default function CountSentence({ className = "", data }: CountSentencePro
             </>
           ) : (
             <>
-              <Play /> {elapsedTime === 0 ? "Start" : "Continue"}
+              <Play /> {elapsedTime === 0 ? 'Start' : 'Continue'}
             </>
           )}
         </Button>
@@ -108,5 +108,5 @@ export default function CountSentence({ className = "", data }: CountSentencePro
         </Button>
       </div>
     </div>
-  );
+  )
 }

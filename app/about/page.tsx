@@ -1,19 +1,19 @@
-import VideoPlayer from "@/components/video-player";
-import type { Metadata } from "next";
+import VideoPlayer from '@/components/video-player'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Why Did You Bother To Read The About Page?",
-  description: "Just why exactly?",
-};
+  title: 'Why Did You Bother To Read The About Page?',
+  description: 'Just why exactly?',
+}
 
 export default function About() {
   return (
-    <main className="mx-auto max-w-2xl p-5">
-      <h1 className="mt-10 flex justify-center p-5 text-center text-4xl font-extrabold">
+    <>
+      <h1 className="flex justify-center p-5 text-center text-4xl font-extrabold">
         What The Hell Is This App?
       </h1>
       <p className="mt-5">
-        Have you ever talked to one of your friends, colleagues, or teachers and wondered,{" "}
+        Have you ever talked to one of your friends, colleagues, or teachers and wondered,{' '}
         <b>&quot;Why the hell are they repeating those specific sentences a lot?&quot;</b>
       </p>
       <p className="mt-5">
@@ -28,7 +28,7 @@ export default function About() {
         Introducing, <b>WAYRY!</b> <i>(Short for Why Are You Repeating Yourself)</i>
       </p>
       <p className="mt-5">
-        This app is built for the intent purpose of counting how many sentences are repeated by your{" "}
+        This app is built for the intent purpose of counting how many sentences are repeated by your{' '}
         <s>targets</s> friends to track their speech pattern, collect the data, and analyze them.
         What an amazing app right? Totally not weird or useless whatsoever!
       </p>
@@ -36,6 +36,6 @@ export default function About() {
         <i>Complimentary video:</i>
       </p>
       <VideoPlayer src="/videos/you-good-bro.mp4" />
-    </main>
-  );
+    </>
+  )
 }

@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -13,35 +13,35 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 
 const formSchema = z.object({
-  sentence: z.string().min(1, "Sentence is required."),
+  sentence: z.string().min(1, 'Sentence is required.'),
   person: z.string().nullable(),
-});
+})
 
 type SentenceFormProps = {
-  className?: string;
-  onSubmit: (data: { person: string | null; sentence: string }) => void;
-};
+  className?: string
+  onSubmit: (data: { person: string | null; sentence: string }) => void
+}
 
-export default function SentenceForm({ className = "", onSubmit }: SentenceFormProps) {
+export default function SentenceForm({ className = '', onSubmit }: SentenceFormProps) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      sentence: "",
+      sentence: '',
       person: null,
     },
-  });
+  })
 
   // 2. Define a submit handler.
   function handleSubmit(values: z.infer<typeof formSchema>) {
     onSubmit({
       ...values,
-      person: values.person ?? "",
-    });
+      person: values.person ?? '',
+    })
   }
 
   return (
@@ -68,7 +68,7 @@ export default function SentenceForm({ className = "", onSubmit }: SentenceFormP
             <FormItem>
               <FormLabel>Person</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} value={field.value || ""} />
+                <Input placeholder="John Doe" {...field} value={field.value || ''} />
               </FormControl>
               <FormDescription>Insert the target person&apos;s name</FormDescription>
               <FormMessage />
@@ -80,5 +80,5 @@ export default function SentenceForm({ className = "", onSubmit }: SentenceFormP
         </Button>
       </form>
     </Form>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { badgeVariants } from "@/components/ui/badge";
-import Link from "next/link";
-import { MoveUpRight } from "lucide-react";
+import { badgeVariants } from '@/components/ui/badge'
+import Link from 'next/link'
+import { MoveUpRight } from 'lucide-react'
 
 export default function Navbar() {
   return (
@@ -11,7 +11,7 @@ export default function Navbar() {
           <Link
             href="https://farisfaikar.vercel.app"
             target="_blank"
-            className={`${badgeVariants({ variant: "secondary" })} flex gap-1`}
+            className={`${badgeVariants({ variant: 'secondary' })} flex gap-1`}
           >
             <p className="hidden sm:flex">Made by Faris Faikar</p>
             <MoveUpRight size={16} />
@@ -24,8 +24,11 @@ export default function Navbar() {
           <a href="/login" className="text-neutral-300">
             Login
           </a>
+          <a href="/dashboard" className="text-neutral-300">
+            Dashboard
+          </a>
         </div>
       </div>
     </nav>
-  );
+  )
 }
