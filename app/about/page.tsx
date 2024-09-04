@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Just why exactly?',
 }
 
-export default function About() {
+export default function AboutPage() {
   return (
     <>
       <h1 className="flex justify-center p-5 text-center text-4xl font-extrabold">

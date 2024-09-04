@@ -5,7 +5,7 @@ import CountSentence from '@/components/count-sentence'
 import { Button } from '@/components/ui/button'
 import { MoveLeft } from 'lucide-react'
 
-export default function Count() {
+export default function CountPage() {
   const searchParams = useSearchParams()
   const sentence = searchParams.get('sentence') || ''
   const person = searchParams.get('person') || ''

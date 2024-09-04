@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "This isn't that kind of project pal",
 }
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <div className="absolute inset-0 -z-10 mx-auto flex max-w-xl items-center justify-center">
       <div className="flex h-20 items-center border-r border-secondary p-5 text-2xl">418</div>

@@ -9,7 +9,7 @@ type FormDataType = {
   person: string | null
 }
 
-export default function Home() {
+export default function HomePage() {
   const [formData, setFormData] = useState<FormDataType>({ sentence: '', person: '' })
   const router = useRouter()
 
