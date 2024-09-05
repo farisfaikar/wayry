@@ -27,7 +27,7 @@ type SentenceFormProps = {
 }
 
 export default function SentenceForm({ className = '', onSubmit }: SentenceFormProps) {
-  // 1. Define your form.
+  // Define form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,7 +36,7 @@ export default function SentenceForm({ className = '', onSubmit }: SentenceFormP
     },
   })
 
-  // 2. Define a submit handler.
+  // Define submit handler
   function handleSubmit(values: z.infer<typeof formSchema>) {
     onSubmit({
       ...values,

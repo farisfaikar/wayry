@@ -33,7 +33,7 @@ export default function AboutPage() {
         What an amazing app right? Totally not weird or useless whatsoever!
       </p>
       <p className="mt-10">
-        <i>Complimentary video:</i>
+        <i>Complementary video:</i>
       </p>
       <VideoPlayer src="/videos/you-good-bro.mp4" />
     </>
