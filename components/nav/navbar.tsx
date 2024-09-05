@@ -1,13 +1,7 @@
 import { badgeVariants } from '@/components/ui/badge'
 import Link from 'next/link'
-import { MoveUpRight, Menu } from 'lucide-react'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+import { MoveUpRight, Menu, SquareArrowOutUpRight } from 'lucide-react'
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 
 export default function Navbar() {
   type Navs = {
@@ -16,10 +10,6 @@ export default function Navbar() {
   }
 
   const navs: Navs[] = [
-    {
-      title: 'GitHub',
-      link: 'https://github.com/farisfaikar/wayry',
-    },
     {
       title: 'About',
       link: '/about',
@@ -63,6 +53,18 @@ export default function Navbar() {
                   </Link>
                 </SheetClose>
                 <div className="flex flex-col gap-2 text-right text-lg">
+                  <SheetClose asChild key="GitHub">
+                    <Link
+                      href="https://github.com/farisfaikar/wayry"
+                      target="_blank"
+                      className="flex items-center justify-end gap-1 text-neutral-300"
+                    >
+                      GitHub
+                      <MoveUpRight size={16} />
+                    </Link>
+                  </SheetClose>
+                </div>
+                <div className="flex flex-col gap-2 text-right text-lg">
                   {navs.map((nav) => (
                     <SheetClose asChild key={nav.link}>
                       <Link key={nav.link} href={nav.link} className="text-neutral-300">
@@ -78,6 +80,15 @@ export default function Navbar() {
 
         {/* Desktop navigation */}
         <div className="hidden items-center gap-8 sm:flex">
+          <Link
+            key="GitHub"
+            href="https://github.com/farisfaikar/wayry"
+            className="flex items-center gap-1 text-neutral-300"
+            target="_blank"
+          >
+            GitHub
+            <MoveUpRight size={16} />
+          </Link>
           {navs.map((nav) => (
             <Link key={nav.link} href={nav.link} className="text-neutral-300">
               {nav.title}
