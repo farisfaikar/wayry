@@ -15,6 +15,13 @@
       "when": 1725453408787,
       "tag": "0001_ambitious_preak",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1725471936779,
+      "tag": "0002_slow_stellaris",
+      "breakpoints": true
     }
   ]
 }

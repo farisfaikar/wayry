@@ -1,0 +1,62 @@
+{
+  "id": "9abee4e7-2086-4b0c-9b66-f6c8ad22fa22",
+  "prevId": "e0e99dc8-52d4-4d84-899e-7b2acd7fdbb7",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.sentences": {
+      "name": "sentences",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sentence": {
+          "name": "sentence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "person": {
+          "name": "person",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sentence_count": {
+          "name": "sentence_count",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elapsed_time": {
+          "name": "elapsed_time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sentences_per_minute": {
+          "name": "sentences_per_minute",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
