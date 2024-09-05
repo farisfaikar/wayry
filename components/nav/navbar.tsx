@@ -1,17 +1,11 @@
 import { badgeVariants } from '@/components/ui/badge'
 import Link from 'next/link'
 import { MoveUpRight, Menu } from 'lucide-react'
-import { SiGithub } from '@icons-pack/react-simple-icons'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
 
@@ -63,12 +57,18 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent className="flex h-full flex-col justify-between">
               <SheetHeader className="mt-5">
-                <SheetTitle className="text-xl text-right">WAYRY</SheetTitle>
-                <div className="flex flex-col gap-2 text-lg text-right">
+                <SheetClose asChild key="WAYRY">
+                  <Link href="/" className="text-right text-xl font-bold">
+                    WAYRY
+                  </Link>
+                </SheetClose>
+                <div className="flex flex-col gap-2 text-right text-lg">
                   {navs.map((nav) => (
-                    <Link key={nav.link} href={nav.link} className="text-neutral-300">
-                      {nav.title}
-                    </Link>
+                    <SheetClose asChild key={nav.link}>
+                      <Link key={nav.link} href={nav.link} className="text-neutral-300">
+                        {nav.title}
+                      </Link>
+                    </SheetClose>
                   ))}
                 </div>
               </SheetHeader>
@@ -77,7 +77,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop navigation */}
-        <div className="hidden gap-8 sm:flex items-center">
+        <div className="hidden items-center gap-8 sm:flex">
           {navs.map((nav) => (
             <Link key={nav.link} href={nav.link} className="text-neutral-300">
               {nav.title}
