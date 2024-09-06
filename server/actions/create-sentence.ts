@@ -16,7 +16,7 @@ export default async function createSentence(data: Data) {
   const sentence = data.sentence
   const sentenceCount = data.sentenceCount
   const elapsedTime = data.elapsedTime
-  const sentencesPerMinute = data.sentencesPerMinute
+  const sentencesPerMinute = Number(data.sentencesPerMinute.toFixed(2))
   
   if (!sentence) {
     return { error: 'No sentences found.' }
@@ -25,9 +25,9 @@ export default async function createSentence(data: Data) {
   const insertedSentence = await db.insert(sentences).values({
     sentence, 
     person,
-    sentenceCount: sentenceCount.toString(), 
-    elapsedTime: elapsedTime.toString(), 
-    sentencesPerMinute: sentencesPerMinute.toString()
+    sentenceCount, 
+    elapsedTime, 
+    sentencesPerMinute,
   })
 
   const plainInsertedSentence = JSON.parse(JSON.stringify(insertedSentence));
