@@ -1,9 +1,20 @@
 import { badgeVariants } from '@/components/ui/badge'
 import Link from 'next/link'
 import { MoveUpRight, Menu, SquareArrowOutUpRight } from 'lucide-react'
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
+import { 
+  Sheet, 
+  SheetClose, 
+  SheetContent, 
+  SheetHeader, 
+  SheetTrigger,
+  SheetFooter,
+} from '@/components/ui/sheet'
+import { auth } from '@/server/auth'
+import Avatar from './avatar'
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await auth()
+
   type Navs = {
     title: string
     link: string
@@ -13,14 +24,6 @@ export default function Navbar() {
     {
       title: 'About',
       link: '/about',
-    },
-    {
-      title: 'Dashboard',
-      link: '/dashboard',
-    },
-    {
-      title: 'Login',
-      link: '/login',
     },
   ]
 
@@ -40,13 +43,20 @@ export default function Navbar() {
         </div>
 
         {/* Mobile navigation */}
-        <div className="flex sm:hidden">
+        <div className="flex sm:hidden items-center gap-5">
+          {!session ? (
+            <Link key="/auth/login" href="/api/auth/signin" className="text-neutral-300">
+              Login
+            </Link>
+          ) : (
+            <Avatar expires={session?.expires ?? ''} user={session?.user} />
+          )}
           <Sheet>
             <SheetTrigger asChild>
               <Menu />
             </SheetTrigger>
-            <SheetContent className="flex h-full flex-col justify-between">
-              <SheetHeader className="mt-5">
+            <SheetContent className="flex h-full flex-col justify-between w-48">
+              <SheetHeader className="mt-5 h-full">
                 <SheetClose asChild key="WAYRY">
                   <Link href="/" className="text-right text-xl font-bold">
                     WAYRY
@@ -94,6 +104,13 @@ export default function Navbar() {
               {nav.title}
             </Link>
           ))}
+          {!session ? (
+            <Link key="/auth/login" href="/api/auth/signin" className="text-neutral-300">
+              Login
+            </Link>
+          ) : (
+            <Avatar expires={session?.expires ?? ''} user={session?.user} />
+          )}
         </div>
       </div>
     </nav>
