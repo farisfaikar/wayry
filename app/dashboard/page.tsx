@@ -56,7 +56,7 @@ export default async function DashboardPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-neutral-500">Sentences per minute</span>
-                  <span className="text-xl font-bold">{sentence.sentencesPerMinute}</span>
+                  <span className="text-xl font-bold">{sentence.sentencesPerMinute?.toFixed(2)}</span>
                 </div>
               </div>
             </AccordionContent>
