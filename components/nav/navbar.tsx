@@ -10,7 +10,7 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet'
 import { auth } from '@/server/auth'
-import Avatar from './avatar'
+import AvatarDropdown from './avatar-dropdown'
 
 export default async function Navbar() {
   const session = await auth()
@@ -49,7 +49,7 @@ export default async function Navbar() {
               Login
             </Link>
           ) : (
-            <Avatar expires={session?.expires ?? ''} user={session?.user} />
+            <AvatarDropdown expires={session?.expires ?? ''} user={session?.user} />
           )}
           <Sheet>
             <SheetTrigger asChild>
@@ -109,7 +109,7 @@ export default async function Navbar() {
               Login
             </Link>
           ) : (
-            <Avatar expires={session?.expires ?? ''} user={session?.user} />
+            <AvatarDropdown expires={session?.expires ?? ''} user={session?.user} />
           )}
         </div>
       </div>
