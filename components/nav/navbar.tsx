@@ -105,7 +105,7 @@ export default async function Navbar() {
             </Link>
           ))}
           {!session ? (
-            <Link key="/auth/login" href="/api/auth/signin" className="text-neutral-300">
+            <Link key="/auth/login" href="/auth/login" className="text-neutral-300">
               Login
             </Link>
           ) : (
