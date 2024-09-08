@@ -12,35 +12,38 @@ import {
 import postgres from 'postgres'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import type { AdapterAccount } from 'next-auth/adapters'
+import { createId } from '@paralleldrive/cuid2'
 
 const connectionString = 'postgres://postgres:postgres@localhost:5432/drizzle'
+
 const pool = postgres(connectionString, { max: 1 })
 
 export const db = drizzle(pool)
 
 export const RoleEnum = pgEnum('roles', ['user', 'admin'])
 
-export const users = pgTable('user', {
+export const users = pgTable('users', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text('name'),
   email: text('email').unique(),
-  emailVerified: timestamp('emailVerified', { mode: 'date' }),
+  password: text('password'),
+  emailVerified: timestamp('email_verified', { mode: 'date' }),
   image: text('image'),
-  twoFactorEnabled: boolean('twoFactorEnabled').default(false),
+  twoFactorEnabled: boolean('two_factor_enabled').default(false),
   role: RoleEnum('roles').default('user'),
 })
 
 export const accounts = pgTable(
-  'account',
+  'accounts',
   {
-    userId: text('userId')
+    userId: text('user_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     type: text('type').$type<AdapterAccount>().notNull(),
     provider: text('provider').notNull(),
-    providerAccountId: text('providerAccountId').notNull(),
+    providerAccountId: text('provider_account_id').notNull(),
     refresh_token: text('refresh_token'),
     access_token: text('access_token'),
     expires_at: integer('expires_at'),
@@ -64,3 +67,18 @@ export const sentences = pgTable('sentences', {
   elapsedTime: integer('elapsed_time'),
   sentencesPerMinute: doublePrecision('sentences_per_minute'),
 })
+
+export const emailTokens = pgTable(
+  'email_tokens',
+  {
+    id: text('id').notNull().$defaultFn(() => createId()),
+    token: text('token').notNull(),
+    expires: timestamp('expires', { mode: 'date' }).notNull(),
+    email: text('email').notNull(),
+  },
+  (emailToken) => ({
+    compositePk: primaryKey({
+      columns: [emailToken.id, emailToken.token],
+    }),
+  }),
+)
