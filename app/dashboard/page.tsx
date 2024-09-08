@@ -9,8 +9,14 @@ import {
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { CirclePlus } from 'lucide-react'
+import type { Metadata } from 'next'
 
 export const revalidate = 0 // Disable caching in Next.js
+
+export const metadata: Metadata = {
+  title: 'What the hell are you looking for?',
+  description: 'These are just a bunch of useless data.',
+}
 
 export default async function DashboardPage() {
   const { error, success } = await getSentences()

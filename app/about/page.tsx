@@ -2,7 +2,7 @@ import VideoPlayer from '@/components/video-player'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Why Did You Bother To Read The About Page?',
+  title: 'Why Did You Bother Reading The About Page?',
   description: 'Just why exactly?',
 }
 
