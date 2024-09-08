@@ -18,8 +18,13 @@ import {
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { z } from 'zod'
+import { emailSignIn } from '@/server/actions/email-signin'
+import { useAction } from 'next-safe-action/hooks'
+import { cn } from '@/lib/utils'
 
 export default function LoginForm() {
+  const { execute, status } = useAction(emailSignIn, {})
+  
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -29,7 +34,7 @@ export default function LoginForm() {
   })
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values)
+    execute(values)
   }
 
   return (
@@ -104,10 +109,12 @@ export default function LoginForm() {
             )}
           />
           <div className="flex flex-col justify-between gap-3">
-            <Button variant="link" className="p-0 self-start" asChild>
+            <Button variant="link" className="self-start p-0" asChild>
               <Link href="/auth/reset">Forgot password?</Link>
             </Button>
-            <Button className="w-full">Login</Button>
+            <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
+              Login
+            </Button>
           </div>
         </form>
       </Form>
