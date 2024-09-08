@@ -1,6 +1,6 @@
 {
-  "id": "5d2d25d5-93a1-423e-b868-bf2054d31bea",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "5d44a47d-587b-42c4-8641-b8617136a7cd",
+  "prevId": "b7cb434b-9395-403e-bae8-1c0cc011a290",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -123,6 +123,12 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -202,6 +208,12 @@
         },
         "email": {
           "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
           "type": "text",
           "primaryKey": false,
           "notNull": false
