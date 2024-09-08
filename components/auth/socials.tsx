@@ -12,7 +12,7 @@ export default function Socials() {
           redirect: false, 
           callbackUrl: '/',
         })}
-        className="flex w-full gap-2"
+        className="flex items-center w-full gap-2"
       >
         <SiGoogle size={18} />
         Google
@@ -22,7 +22,7 @@ export default function Socials() {
           redirect: false, 
           callbackUrl: '/',
         })}
-        className="flex w-full gap-2"
+        className="flex items-center w-full gap-2"
       >
         <SiGithub size={18} />
         GitHub

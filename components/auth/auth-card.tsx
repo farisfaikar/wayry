@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -10,17 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/password-input'
-import { Label } from '@/components/ui/label'
 import { useRouter } from 'next/navigation'
-import Socials from "@/components/auth/socials"
-import BackButton from "@/components/auth/back-button"
-import { Separator } from "@/components/ui/separator"
+import Socials from '@/components/auth/socials'
+import BackButton from '@/components/auth/back-button'
+import { Separator } from '@/components/ui/separator'
 
 type CardWrapperProps = {
   children: React.ReactNode
   cardTitle: string
+  cardDescription?: string
   backButtonHref: string
   backButtonLabel: string
   showSocials?: boolean
@@ -29,6 +26,7 @@ type CardWrapperProps = {
 export default function AuthCard({
   children,
   cardTitle,
+  cardDescription,
   backButtonHref,
   backButtonLabel,
   showSocials,
@@ -49,7 +47,6 @@ export default function AuthCard({
     //     email: data.email,
     //     password: data.password,
     //   })
-
     //   if (dataUser) console.log(dataUser)
     //   if (dataUser) router.refresh()
     // } catch (error) {
@@ -66,26 +63,27 @@ export default function AuthCard({
   }
 
   return (
-    <Card className="mx-auto mt-10 w-[350px]">
+    <Card className="mx-auto mt-10 w-full sm:w-[350px]">
       <CardHeader className="text-center">
         <CardTitle>{cardTitle}</CardTitle>
+        <CardDescription className="text-sm text-muted-foreground" hidden={!cardDescription}>
+          {cardDescription}
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        {children}
-      </CardContent>
+      <CardContent>{children}</CardContent>
       <div className="flex items-center gap-4">
         <Separator className="flex-1" />
         <span className="text-muted-foreground">or</span>
         <Separator className="flex-1" />
       </div>
       {showSocials && (
-        <CardFooter className="flex justify-between mt-6">
+        <CardFooter className="mt-6 flex justify-between">
           <Socials />
         </CardFooter>
       )}
-      <CardFooter>
+      {/* <CardFooter>
         <BackButton href={backButtonHref} label={backButtonLabel} />
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   )
 }
