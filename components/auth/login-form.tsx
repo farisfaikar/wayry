@@ -21,11 +21,18 @@ import { z } from 'zod'
 import { emailSignIn } from '@/server/actions/email-signin'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
+import { useState } from "react"
 
 export default function LoginForm() {
-  const { execute, status } = useAction(emailSignIn, {})
+  const [ error, setError ] = useState('')
   
-  const form = useForm({
+  const { execute, status } = useAction(emailSignIn, {
+    onSuccess(data) {
+      console.log(data)
+    }
+  })
+  
+  const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
@@ -45,30 +52,6 @@ export default function LoginForm() {
       backButtonLabel="Create a new account"
       showSocials
     >
-      {/* <form action="/auth/login" method="post">
-        <div className="grid w-full items-center gap-4">
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              // value={data?.email}
-              // onChange={handleChange}
-            />
-          </div>
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="password">Password</Label>
-            <PasswordInput
-              id="password"
-              name="password"
-              placeholder="*******"
-              // value={data?.password}
-              // onChange={handleChange}
-            />
-          </div>
-        </div>
-      </form> */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

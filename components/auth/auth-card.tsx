@@ -81,9 +81,9 @@ export default function AuthCard({
           <Socials />
         </CardFooter>
       )}
-      {/* <CardFooter>
+      <CardFooter className="flex justify-center">
         <BackButton href={backButtonHref} label={backButtonLabel} />
-      </CardFooter> */}
+      </CardFooter>
     </Card>
   )
 }
