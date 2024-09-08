@@ -8,15 +8,12 @@ import { Button } from '@/components/ui/button'
 import { useState, useEffect, useRef } from 'react'
 import { Play, Pause, RotateCcw, Save, Loader } from 'lucide-react'
 import createSentence from '@/server/actions/create-sentence'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import CountButton from './count-button'
+import { MoveLeft } from 'lucide-react'
 
 type CountSentenceProps = {
   className?: string
-  data: {
-    person: string
-    sentence: string
-  }
 }
 
 const formSchema = z.object({
@@ -27,7 +24,7 @@ const formSchema = z.object({
   sentencesPerMinute: z.number().nullable(),
 })
 
-export default function CountSentence({ className = '', data }: CountSentenceProps) {
+export default function CountSentence({ className = '' }: CountSentenceProps) {
   const [sentenceCount, setSentenceCount] = useState(0)
   const [elapsedTime, setElapsedTime] = useState(0)
   const [sentencesPerMinute, setSentencesPerMinute] = useState(0)
@@ -35,6 +32,9 @@ export default function CountSentence({ className = '', data }: CountSentencePro
   const [isLoading, setIsLoading] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const sentence = searchParams.get('sentence') || ''
+  const person = searchParams.get('person') || ''
 
   // Start the timer when the component mounts
   useEffect(() => {
@@ -85,6 +85,11 @@ export default function CountSentence({ className = '', data }: CountSentencePro
     },
   })
 
+  const data = {
+    sentence,
+    person,
+  }
+  
   // Define submit handler
   const handleCreateSentence = async () => {
     setIsLoading(true)
@@ -107,6 +112,10 @@ export default function CountSentence({ className = '', data }: CountSentencePro
     } else {
       console.error('Failed to create sentence: ', response.error)
     }
+  }
+
+  const goToHome = () => {
+    router.push('/')
   }
 
   return (
@@ -178,6 +187,9 @@ export default function CountSentence({ className = '', data }: CountSentencePro
           )}
         </Button>
       </div>
+      <Button variant="link" className="mt-5 flex gap-2" onClick={goToHome}>
+        <MoveLeft /> Back
+      </Button>
     </div>
   )
 }
