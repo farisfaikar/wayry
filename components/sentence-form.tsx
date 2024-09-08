@@ -3,7 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -21,12 +22,19 @@ const formSchema = z.object({
   person: z.string().nullable(),
 })
 
-type SentenceFormProps = {
-  className?: string
-  onSubmit: (data: { person: string | null; sentence: string }) => void
+type FormDataType = {
+  sentence: string
+  person: string | null
 }
 
-export default function SentenceForm({ className = '', onSubmit }: SentenceFormProps) {
+type SentenceFormProps = {
+  className?: string
+}
+
+export default function SentenceForm({ className = '' }: SentenceFormProps) {
+  const [formData, setFormData] = useState<FormDataType>({ sentence: '', person: '' })
+  const router = useRouter()
+
   // Define form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,11 +45,14 @@ export default function SentenceForm({ className = '', onSubmit }: SentenceFormP
   })
 
   // Define submit handler
-  function handleSubmit(values: z.infer<typeof formSchema>) {
-    onSubmit({
+  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    setFormData({
       ...values,
-      person: values.person ?? '',
+      person: values.person ?? ''
     })
+    router.push(
+      `/count?sentence=${encodeURIComponent(values.sentence)}&person=${encodeURIComponent(values.person || '')}`,
+    )
   }
 
   return (
