@@ -2,7 +2,6 @@
 
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import Image from 'next/image'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,19 +13,30 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { LogOut } from "lucide-react"
 import Link from 'next/link'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-export default function Avatar({ user }: Session) {
+export default function AvatarDropdown({ user }: Session) {
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return ''
+    const nameParts = name.split(' ')
+    const firstInitial = nameParts[0]?.[0]?.toUpperCase() ?? ''
+    const secondInitial = nameParts[1]?.[0]?.toUpperCase() ?? ''
+    return `${firstInitial}${secondInitial}`
+  }
+
   return (
     <div>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild className="cursor-pointer">
-          <Image
-            src={user?.image ?? ''}
-            alt={user?.name ?? ''}
-            width={32}
-            height={32}
-            className="rounded-full"
-          />
+          <Avatar className="w-8 h-8">
+            <AvatarImage
+              src={user?.image ?? ''}
+              alt={user?.name ?? ''}
+            />  
+            <AvatarFallback className="text-sm">
+              {getInitials(user?.name)}
+            </AvatarFallback>
+          </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
