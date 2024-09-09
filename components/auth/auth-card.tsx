@@ -71,15 +71,17 @@ export default function AuthCard({
         </CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>
-      <div className="flex items-center gap-4">
-        <Separator className="flex-1" />
-        <span className="text-muted-foreground">or</span>
-        <Separator className="flex-1" />
-      </div>
       {showSocials && (
-        <CardFooter className="mt-6 flex justify-between">
-          <Socials />
-        </CardFooter>
+        <>
+          <div className="flex items-center gap-4">
+            <Separator className="flex-1" />
+            <span className="text-muted-foreground">or</span>
+            <Separator className="flex-1" />
+          </div>
+          <CardFooter className="mt-6 flex justify-between">
+            <Socials />
+          </CardFooter>
+        </>
       )}
       <CardFooter className="flex justify-center">
         <BackButton href={backButtonHref} label={backButtonLabel} />
