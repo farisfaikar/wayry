@@ -12,7 +12,6 @@ import {
 import postgres from 'postgres'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import type { AdapterAccount } from 'next-auth/adapters'
-import { createId } from '@paralleldrive/cuid2'
 
 const connectionString = 'postgres://postgres:postgres@localhost:5432/drizzle'
 
@@ -71,7 +70,37 @@ export const sentences = pgTable('sentences', {
 export const emailTokens = pgTable(
   'email_tokens',
   {
-    id: text('id').notNull().$defaultFn(() => createId()),
+    id: text('id').notNull().$defaultFn(() => crypto.randomUUID()),
+    token: text('token').notNull(),
+    expires: timestamp('expires', { mode: 'date' }).notNull(),
+    email: text('email').notNull(),
+  },
+  (emailToken) => ({
+    compositePk: primaryKey({
+      columns: [emailToken.id, emailToken.token],
+    }),
+  }),
+)
+
+export const passwordResetTokens = pgTable(
+  'password_reset_tokens',
+  {
+    id: text('id').notNull().$defaultFn(() => crypto.randomUUID())  ,
+    token: text('token').notNull(),
+    expires: timestamp('expires', { mode: 'date' }).notNull(),
+    email: text('email').notNull(),
+  },
+  (emailToken) => ({
+    compositePk: primaryKey({
+      columns: [emailToken.id, emailToken.token],
+    }),
+  }),
+)
+
+export const twoFactorTokens = pgTable(
+  'two_factor_tokens',
+  {
+    id: text('id').notNull().$defaultFn(() => crypto.randomUUID())  ,
     token: text('token').notNull(),
     expires: timestamp('expires', { mode: 'date' }).notNull(),
     email: text('email').notNull(),
