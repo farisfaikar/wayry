@@ -22,13 +22,17 @@ import { emailSignIn } from '@/server/actions/email-signin'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
+import ErrorForm from "@/components/auth/error-form"
+import SuccessForm from "@/components/auth/success-form"
 
 export default function LoginForm() {
   const [ error, setError ] = useState('')
+  const [ success, setSuccess ] = useState('')
   
   const { execute, status } = useAction(emailSignIn, {
     onSuccess(data) {
-      console.log(data)
+      if (data?.error) setError(data.error)
+      if (data?.success) setSuccess(data.success)
     }
   })
   
@@ -99,6 +103,8 @@ export default function LoginForm() {
               Login
             </Button>
           </div>
+          <SuccessForm message={success} />
+          <ErrorForm message={error} />
         </form>
       </Form>
     </AuthCard>
