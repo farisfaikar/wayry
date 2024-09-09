@@ -54,7 +54,7 @@ export default function RegisterForm() {
       cardTitle="Create a WAYRY account!"
       cardDescription="Enter your name, email and password to register."
       backButtonHref="/auth/login"
-      backButtonLabel="Log into existing account"
+      backButtonLabel="Login to existing account"
       showSocials
     >
       <Form {...form}>
