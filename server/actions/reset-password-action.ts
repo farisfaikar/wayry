@@ -10,7 +10,7 @@ import { sendPasswordResetEmail } from "@/server/actions/email-verification"
 
 const action = createSafeActionClient()
 
-export const resetPasswordEmail = action(ResetPasswordEmailSchema, async ({ email }) => {
+export const resetPasswordAction = action(ResetPasswordEmailSchema, async ({ email }) => {
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, email)
   })

@@ -21,13 +21,13 @@ import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import ErrorForm from '@/components/auth/error-form'
 import SuccessForm from '@/components/auth/success-form'
-import { resetPasswordEmail } from '@/server/actions/reset-password-email'
+import { resetPasswordAction } from '@/server/actions/reset-password-action'
 
 export default function ResetPasswordEmailForm() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const { execute, status } = useAction(resetPasswordEmail, {
+  const { execute, status } = useAction(resetPasswordAction, {
     onSuccess(data) {
       if (data?.error) setError(data.error)
       if (data?.success) setSuccess(data.success)
