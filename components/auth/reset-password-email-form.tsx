@@ -4,7 +4,7 @@ import AuthCard from '@/components/auth/auth-card'
 import { Input } from "@/components/ui/input"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { ResetSchema } from '@/types/reset-schema'
+import { ResetPasswordEmailSchema } from '@/types/reset-password-email-schema'
 import {
   Form,
   FormField,
@@ -34,14 +34,14 @@ export default function ResetPasswordEmailForm() {
     },
   })
 
-  const form = useForm<z.infer<typeof ResetSchema>>({
-    resolver: zodResolver(ResetSchema),
+  const form = useForm<z.infer<typeof ResetPasswordEmailSchema>>({
+    resolver: zodResolver(ResetPasswordEmailSchema),
     defaultValues: {
       email: '',
     },
   })
 
-  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
+  const onSubmit = (values: z.infer<typeof ResetPasswordEmailSchema>) => {
     execute(values)
   }
 

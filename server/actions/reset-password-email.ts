@@ -2,7 +2,7 @@
 
 import { db } from "@/server"
 import { users } from "@/server/schema"
-import { ResetSchema } from "@/types/reset-schema"
+import { ResetPasswordEmailSchema } from "@/types/reset-password-email-schema"
 import { createSafeActionClient } from "next-safe-action"
 import { eq } from 'drizzle-orm';
 import { generatePasswordResetToken } from "@/server/actions/tokens"
@@ -10,7 +10,7 @@ import { sendPasswordResetEmail } from "@/server/actions/email-verification"
 
 const action = createSafeActionClient()
 
-export const resetPasswordEmail = action(ResetSchema, async ({ email }) => {
+export const resetPasswordEmail = action(ResetPasswordEmailSchema, async ({ email }) => {
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, email)
   })
