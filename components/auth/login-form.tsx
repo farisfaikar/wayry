@@ -97,7 +97,7 @@ export default function LoginForm() {
           />
           <div className="flex flex-col justify-between gap-3">
             <Button variant="link" className="self-start p-0" asChild>
-              <Link href="/auth/reset">Forgot password?</Link>
+              <Link href="/auth/reset-password-email">Forgot password?</Link>
             </Button>
             <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
               Login
