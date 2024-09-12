@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { LogOut } from "lucide-react"
+import { LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
@@ -28,20 +28,21 @@ export default function AvatarDropdown({ user }: Session) {
     <div>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild className="cursor-pointer">
-          <Avatar className="w-8 h-8">
-            <AvatarImage
-              src={user?.image ?? ''}
-              alt={user?.name ?? ''}
-            />  
-            <AvatarFallback className="text-sm">
-              {getInitials(user?.name)}
-            </AvatarFallback>
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={user?.image ?? ''} alt={user?.name ?? ''} />
+            <AvatarFallback className="text-sm">{getInitials(user?.name)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuLabel>
-            <span className="text-sm font-medium">{user?.name}</span>
+            <div className="flex flex-col items-center justify-center gap-2 rounded bg-secondary p-5 py-2">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={user?.image ?? ''} alt={user?.name ?? ''} />
+                <AvatarFallback className="text-sm">{getInitials(user?.name)}</AvatarFallback>
+              </Avatar>
+              <span className="text-md font-bold">{user?.name}</span>
+              <span className="text-xs font-medium">{user?.email}</span>
+            </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
