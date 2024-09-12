@@ -1,11 +1,10 @@
 'use client'
 
 import AuthCard from '@/components/auth/auth-card'
-import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { LoginSchema } from '@/types/login-schema'
+import { ResetPasswordSchema } from '@/types/reset-password-schema'
 import {
   Form,
   FormField,
@@ -16,67 +15,51 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import { z } from 'zod'
-import { emailSignIn } from '@/server/actions/email-signin'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
 import ErrorForm from "@/components/auth/error-form"
 import SuccessForm from "@/components/auth/success-form"
+import { resetPassword } from "@/server/actions/reset-password"
+import { useSearchParams } from "next/navigation"
 
-export default function LoginForm() {
+export default function ResetPasswordForm() {
   const [ error, setError ] = useState('')
   const [ success, setSuccess ] = useState('')
+  const token = useSearchParams().get('token')
   
-  const { execute, status } = useAction(emailSignIn, {
+  const { execute, status } = useAction(resetPassword, {
     onSuccess(data) {
       if (data?.error) setError(data.error)
       if (data?.success) setSuccess(data.success)
     }
   })
   
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+    resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
-      email: '',
       password: '',
     },
   })
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    execute(values)
+  const onSubmit = (values: z.infer<typeof ResetPasswordSchema>) => {
+    execute({
+      password: values.password,
+      token
+    })
   }
 
   return (
     <AuthCard
-      cardTitle="Login to WAYRY!"
-      cardDescription="Enter your email and password to login."
-      backButtonHref="/auth/register"
-      backButtonLabel="Create a new account"
-      showSocials
+      cardTitle="Reset password"
+      cardDescription="Enter a new password."
+      backButtonHref="/auth/login"
+      backButtonLabel="Back to login"
+      showSocials={false}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="johndoe@gmail.com"
-                    type="email"
-                    autoComplete="email"
-                  />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="password"
@@ -87,6 +70,7 @@ export default function LoginForm() {
                   <PasswordInput
                     {...field}
                     placeholder="********"
+                    disabled={status === 'executing'}
                     autoComplete="current-password"
                   />
                 </FormControl>
@@ -96,11 +80,8 @@ export default function LoginForm() {
             )}
           />
           <div className="flex flex-col justify-between gap-3">
-            <Button variant="link" className="self-start p-0" asChild>
-              <Link href="/auth/reset-password-email">Forgot password?</Link>
-            </Button>
             <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
-              Login
+              Reset Password
             </Button>
           </div>
           <SuccessForm message={success} />

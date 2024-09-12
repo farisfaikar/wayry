@@ -40,5 +40,5 @@ export const emailRegister = action(RegisterSchema, async ({ name, email, passwo
 
   await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token)
 
-  return { success: 'Confirmation email sent' }
+  return { success: 'Confirmation email sent!' }
 })
