@@ -12,6 +12,7 @@ import {
 import postgres from 'postgres'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import type { AdapterAccount } from 'next-auth/adapters'
+import { relations } from "drizzle-orm"
 
 const connectionString = 'postgres://postgres:postgres@localhost:5432/drizzle'
 
@@ -60,6 +61,7 @@ export const accounts = pgTable(
 
 export const sentences = pgTable('sentences', {
   id: serial('id').primaryKey().notNull(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
   sentence: text('sentence').notNull(),
   person: text('person'),
   sentenceCount: integer('sentence_count'),
@@ -111,3 +113,15 @@ export const twoFactorTokens = pgTable(
     }),
   }),
 )
+
+export const sentenceRelations = relations(sentences, ({ one }) => ({
+  user: one(users, {
+    fields: [sentences.userId],
+    references: [users.id],
+    relationName: 'user',
+  }),
+}))
+
+export const userRelations = relations(users, ({ many }) => ({
+  sentences: many(sentences, { relationName: 'sentences' }),
+}))
