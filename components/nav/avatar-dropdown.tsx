@@ -34,15 +34,9 @@ export default function AvatarDropdown({ user }: Session) {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>
-            <div className="flex flex-col items-center justify-center gap-2 rounded bg-secondary p-5 py-2">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src={user?.image ?? ''} alt={user?.name ?? ''} />
-                <AvatarFallback className="text-sm">{getInitials(user?.name)}</AvatarFallback>
-              </Avatar>
-              <span className="text-md font-bold">{user?.name}</span>
-              <span className="text-xs font-medium">{user?.email}</span>
-            </div>
+          <DropdownMenuLabel className="flex flex-col gap-2">
+            <p className="text-md font-bold">{user?.name}</p>
+            <p className="text-xs font-medium text-neutral-400">{user?.email}</p>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
