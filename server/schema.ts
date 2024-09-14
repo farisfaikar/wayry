@@ -121,7 +121,6 @@ export const sentences = pgTable('sentences', {
   id: serial('id').primaryKey().notNull(),
   personId: serial('person_id').references(() => people.id, { onDelete: 'cascade' }),
   sentence: text('sentence').notNull(),
-  person: text('person'),
   sentenceCount: integer('sentence_count'),
   elapsedTime: integer('elapsed_time'),
   sentencesPerMinute: doublePrecision('sentences_per_minute'),
