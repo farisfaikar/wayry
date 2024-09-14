@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1726302914599,
-      "tag": "0000_many_winter_soldier",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1726303103750,
-      "tag": "0001_sour_ego",
+      "when": 1726306768007,
+      "tag": "0000_giant_roland_deschain",
       "breakpoints": true
     }
   ]

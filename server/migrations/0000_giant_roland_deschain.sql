@@ -35,6 +35,22 @@ CREATE TABLE IF NOT EXISTS "password_reset_tokens" (
 	CONSTRAINT "password_reset_tokens_id_token_pk" PRIMARY KEY("id","token")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "people" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"name" text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "sentences" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"person_id" serial NOT NULL,
+	"sentence" text NOT NULL,
+	"person" text,
+	"sentence_count" integer,
+	"elapsed_time" integer,
+	"sentences_per_minute" double precision
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "two_factor_tokens" (
 	"id" text NOT NULL,
 	"token" text NOT NULL,
@@ -57,6 +73,18 @@ CREATE TABLE IF NOT EXISTS "user" (
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "people" ADD CONSTRAINT "people_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "sentences" ADD CONSTRAINT "sentences_person_id_people_id_fk" FOREIGN KEY ("person_id") REFERENCES "public"."people"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
