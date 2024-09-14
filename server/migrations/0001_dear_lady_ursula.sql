@@ -1,0 +1,1 @@
+ALTER TABLE "sentences" DROP COLUMN IF EXISTS "person";
