@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Play, Pause, RotateCcw, Save, Loader } from 'lucide-react'
 import createSentence from '@/server/actions/create-sentence'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'  // Import useSession
 import CountButton from './count-button'
 import { MoveLeft } from 'lucide-react'
 
@@ -35,6 +36,7 @@ export default function CountSentence({ className = '' }: CountSentenceProps) {
   const searchParams = useSearchParams()
   const sentence = searchParams.get('sentence') || ''
   const person = searchParams.get('person') || ''
+  const { data: session, status } = useSession() // Get session data
 
   // Start the timer when the component mounts
   useEffect(() => {
@@ -174,7 +176,7 @@ export default function CountSentence({ className = '' }: CountSentenceProps) {
           variant="outline"
           onClick={handleCreateSentence}
           className="flex w-full gap-2"
-          disabled={isLoading} // Disable button while loading
+          disabled={isLoading || !session}  // Disable if loading or no session
         >
           {isLoading ? (
             <>
@@ -182,7 +184,8 @@ export default function CountSentence({ className = '' }: CountSentenceProps) {
             </>
           ) : (
             <>
-              <Save /> Save
+              <Save /> 
+              {session ? 'Save' : 'Login to save'}
             </>
           )}
         </Button>
