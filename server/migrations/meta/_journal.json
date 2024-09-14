@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1725811532985,
-      "tag": "0000_rainy_vindicator",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1725812167436,
-      "tag": "0001_familiar_puff_adder",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1725812953730,
-      "tag": "0002_productive_doctor_octopus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1725890014879,
-      "tag": "0003_brown_ben_urich",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1726215563681,
-      "tag": "0004_loose_blindfold",
+      "when": 1726302632174,
+      "tag": "0000_previous_proteus",
       "breakpoints": true
     }
   ]
