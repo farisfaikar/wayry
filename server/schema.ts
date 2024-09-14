@@ -22,6 +22,7 @@ export const db = drizzle(pool)
 
 export const RoleEnum = pgEnum('roles', ['user', 'admin'])
 
+// --- Table Schemas --- //
 export const users = pgTable('user', {
   id: text('id')
     .primaryKey()
@@ -58,16 +59,6 @@ export const accounts = pgTable(
     }),
   }),
 )
-
-export const sentences = pgTable('sentences', {
-  id: serial('id').primaryKey().notNull(),
-  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
-  sentence: text('sentence').notNull(),
-  person: text('person'),
-  sentenceCount: integer('sentence_count'),
-  elapsedTime: integer('elapsed_time'),
-  sentencesPerMinute: doublePrecision('sentences_per_minute'),
-})
 
 export const emailTokens = pgTable(
   'email_tokens',
@@ -120,14 +111,40 @@ export const twoFactorTokens = pgTable(
   }),
 )
 
-export const sentenceRelations = relations(sentences, ({ one }) => ({
-  user: one(users, {
-    fields: [sentences.userId],
-    references: [users.id],
-    relationName: 'user',
-  }),
+export const people = pgTable('people', {
+  id: serial('id').primaryKey().notNull(),
+  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+})
+
+export const sentences = pgTable('sentences', {
+  id: serial('id').primaryKey().notNull(),
+  personId: serial('person_id').references(() => people.id, { onDelete: 'cascade' }),
+  sentence: text('sentence').notNull(),
+  person: text('person'),
+  sentenceCount: integer('sentence_count'),
+  elapsedTime: integer('elapsed_time'),
+  sentencesPerMinute: doublePrecision('sentences_per_minute'),
+})
+
+// --- Table Healthy (and hopefully non-toxic) Relationship Goals --- //
+export const usersRelations = relations(users, ({ many }) => ({
+  people: many(people, { relationName: 'people' }),
 }))
 
-export const userRelations = relations(users, ({ many }) => ({
-  sentences: many(sentences, { relationName: 'sentences' }),
+export const peopleRelations = relations(people, ({ one, many }) => ({
+  user: one(users, {
+    fields: [people.userId],
+    references: [users.id],
+    relationName: 'user'
+  }),
+  sentences: many(sentences)
+}))
+
+export const sentencesRelations = relations(sentences, ({ one }) => ({
+  person: one(people, {
+    fields: [sentences.personId],
+    references: [people.id],
+    relationName: 'person',
+  })
 }))
