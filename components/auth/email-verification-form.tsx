@@ -4,8 +4,8 @@ import AuthCard from '@/components/auth/auth-card'
 import { emailVerification } from '@/server/actions/tokens'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import SuccessForm from "@/components/auth/success-form"
-import ErrorForm from "@/components/auth/error-form"
+import SuccessAlert from "@/components/success-alert"
+import ErrorAlert from "@/components/error-alert"
 
 export const EmailVerificationForm = () => {
   const token = useSearchParams().get('token') || ''
@@ -42,8 +42,8 @@ export const EmailVerificationForm = () => {
     >
       <div className="flex w-full flex-col items-center justify-center">
         <p>{!success && !error ? 'Verifying email...' : ''}</p>
-        <SuccessForm message={success} />
-        <ErrorForm message={error} />
+        <SuccessAlert message={success} />
+        <ErrorAlert message={error} />
       </div>
     </AuthCard>
   )

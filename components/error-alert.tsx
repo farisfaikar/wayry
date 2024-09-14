@@ -1,6 +1,6 @@
 import { AlertCircle } from 'lucide-react'
 
-export default function ErrorForm({ message }: { message?: string }) {
+export default function ErrorAlert({ message }: { message?: string }) {
   if (!message) return null
 
   return (

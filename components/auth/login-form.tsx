@@ -22,8 +22,8 @@ import { emailSignIn } from '@/server/actions/email-signin'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
-import ErrorForm from "@/components/auth/error-form"
-import SuccessForm from "@/components/auth/success-form"
+import ErrorAlert from "@/components/error-alert"
+import SuccessAlert from "@/components/success-alert"
 
 export default function LoginForm() {
   const [ error, setError ] = useState('')
@@ -103,8 +103,8 @@ export default function LoginForm() {
               Login
             </Button>
           </div>
-          <SuccessForm message={success} />
-          <ErrorForm message={error} />
+          <SuccessAlert message={success} />
+          <ErrorAlert message={error} />
         </form>
       </Form>
     </AuthCard>

@@ -19,8 +19,8 @@ import { z } from 'zod'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
-import ErrorForm from "@/components/auth/error-form"
-import SuccessForm from "@/components/auth/success-form"
+import ErrorAlert from "@/components/error-alert"
+import SuccessAlert from "@/components/success-alert"
 import { resetPassword } from "@/server/actions/reset-password"
 import { useSearchParams } from "next/navigation"
 
@@ -84,8 +84,8 @@ export default function ResetPasswordForm() {
               Reset Password
             </Button>
           </div>
-          <SuccessForm message={success} />
-          <ErrorForm message={error} />
+          <SuccessAlert message={success} />
+          <ErrorAlert message={error} />
         </form>
       </Form>
     </AuthCard>

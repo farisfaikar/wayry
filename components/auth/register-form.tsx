@@ -22,8 +22,8 @@ import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
 import { emailRegister } from "@/server/actions/email-register"
-import SuccessForm from "@/components/auth/success-form"
-import ErrorForm from "@/components/auth/error-form"
+import SuccessAlert from "@/components/success-alert"
+import ErrorAlert from "@/components/error-alert"
 
 export default function RegisterForm() {
   const [ error, setError ] = useState('')
@@ -114,8 +114,8 @@ export default function RegisterForm() {
               </FormItem>
             )}
           />
-          <SuccessForm message={success} />
-          <ErrorForm message={error} />
+          <SuccessAlert message={success} />
+          <ErrorAlert message={error} />
           <div className="mt-5">
             <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
               Register
