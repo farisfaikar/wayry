@@ -12,7 +12,7 @@ import {
 import postgres from 'postgres'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import type { AdapterAccount } from 'next-auth/adapters'
-import { relations } from "drizzle-orm"
+import { relations } from 'drizzle-orm'
 
 const connectionString = 'postgres://postgres:postgres@localhost:5432/drizzle'
 
@@ -22,28 +22,28 @@ export const db = drizzle(pool)
 
 export const RoleEnum = pgEnum('roles', ['user', 'admin'])
 
-export const users = pgTable('users', {
+export const users = pgTable('user', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text('name'),
   email: text('email').unique(),
   password: text('password'),
-  emailVerified: timestamp('email_verified', { mode: 'date' }),
+  emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),
   twoFactorEnabled: boolean('two_factor_enabled').default(false),
   role: RoleEnum('roles').default('user'),
 })
 
 export const accounts = pgTable(
-  'accounts',
+  'account',
   {
-    userId: text('user_id')
+    userId: text('userId')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     type: text('type').$type<AdapterAccount>().notNull(),
     provider: text('provider').notNull(),
-    providerAccountId: text('provider_account_id').notNull(),
+    providerAccountId: text('providerAccountId').notNull(),
     refresh_token: text('refresh_token'),
     access_token: text('access_token'),
     expires_at: integer('expires_at'),
@@ -72,7 +72,9 @@ export const sentences = pgTable('sentences', {
 export const emailTokens = pgTable(
   'email_tokens',
   {
-    id: text('id').notNull().$defaultFn(() => crypto.randomUUID()),
+    id: text('id')
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     token: text('token').notNull(),
     expires: timestamp('expires', { mode: 'date' }).notNull(),
     email: text('email').notNull(),
@@ -87,7 +89,9 @@ export const emailTokens = pgTable(
 export const passwordResetTokens = pgTable(
   'password_reset_tokens',
   {
-    id: text('id').notNull().$defaultFn(() => crypto.randomUUID())  ,
+    id: text('id')
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     token: text('token').notNull(),
     expires: timestamp('expires', { mode: 'date' }).notNull(),
     email: text('email').notNull(),
@@ -102,7 +106,9 @@ export const passwordResetTokens = pgTable(
 export const twoFactorTokens = pgTable(
   'two_factor_tokens',
   {
-    id: text('id').notNull().$defaultFn(() => crypto.randomUUID())  ,
+    id: text('id')
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     token: text('token').notNull(),
     expires: timestamp('expires', { mode: 'date' }).notNull(),
     email: text('email').notNull(),

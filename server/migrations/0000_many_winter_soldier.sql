@@ -35,15 +35,6 @@ CREATE TABLE IF NOT EXISTS "password_reset_tokens" (
 	CONSTRAINT "password_reset_tokens_id_token_pk" PRIMARY KEY("id","token")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "sentences" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"sentence" text NOT NULL,
-	"person" text,
-	"sentence_count" integer,
-	"elapsed_time" integer,
-	"sentences_per_minute" double precision
-);
---> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "two_factor_tokens" (
 	"id" text NOT NULL,
 	"token" text NOT NULL,
