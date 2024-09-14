@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from '@/server'
-import { sentences, users } from '@/server/schema'
+import { people, sentences, users } from '@/server/schema'
 import { auth } from '@/server/auth'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
@@ -15,15 +15,20 @@ type Data = {
 }
 
 export default async function createSentence(data: Data) {
-  const person = data.person
+  const name = data.person
   const sentence = data.sentence
   const sentenceCount = data.sentenceCount
   const elapsedTime = data.elapsedTime
   const sentencesPerMinute = Number(data.sentencesPerMinute.toFixed(2))
   const session = await auth()
   const userEmail = session?.user?.email
+  
   const user = await db.query.users.findFirst({
     where: eq(users.email, userEmail ?? ''),
+  })
+
+  const person = await db.query.people.findFirst({
+    where: eq(people.name, name)
   })
 
   if (!session) return { error: 'Please login to create sentence' }
@@ -35,9 +40,8 @@ export default async function createSentence(data: Data) {
   if (!user) return { error: 'User not found' }
 
   const insertedSentence = await db.insert(sentences).values({
-    userId: user.id,
+    personId: person?.id ?? 0,
     sentence,
-    person,
     sentenceCount,
     elapsedTime,
     sentencesPerMinute,
