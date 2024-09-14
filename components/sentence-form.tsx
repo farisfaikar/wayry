@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import PeopleDropdownInput from "@/components/people-dropdown-input"
+import { useSession } from 'next-auth/react'  // Import useSession
 
 const formSchema = z.object({
   sentence: z.string().min(1, 'Sentence is required.'),
@@ -34,6 +36,7 @@ type SentenceFormProps = {
 export default function SentenceForm({ className = '' }: SentenceFormProps) {
   const [formData, setFormData] = useState<FormDataType>({ sentence: '', person: '' })
   const router = useRouter()
+  const { data: session, status } = useSession() // Get session data
 
   // Define form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -72,20 +75,40 @@ export default function SentenceForm({ className = '' }: SentenceFormProps) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="person"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Person</FormLabel>
-              <FormControl>
-                <Input placeholder="John Doe" {...field} value={field.value || ''} />
-              </FormControl>
-              <FormDescription>Insert the target person&apos;s name</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {
+          !session && status !== 'loading'
+          ? (
+            <FormField
+              control={form.control}
+              name="person"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Person</FormLabel>
+                  <FormControl>
+                    <Input placeholder="John Doe" {...field} value={field.value || ''} />
+                  </FormControl>
+                  <FormDescription>Insert the target person&apos;s name</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ) : (
+            <FormField
+              control={form.control}
+              name="person"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Person</FormLabel>
+                  <FormControl>
+                    <PeopleDropdownInput {...field} value={field.value || ''} />
+                  </FormControl>
+                  <FormDescription>Select the target person</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )
+        }
         <Button type="submit" className="w-full sm:w-1/3">
           Count
         </Button>
