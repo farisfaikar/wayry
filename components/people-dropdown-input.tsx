@@ -15,9 +15,7 @@ import {
 } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import getPeople from '@/server/actions/get-people'
-import Link from 'next/link'
-import { Separator } from '@/components/ui/separator'
-import { PersonModal } from "@/components/person-modal"
+import { CreatePersonDialog } from "@/components/create-person-dialog"
 
 type PeopleDropdownInputProps = {
   value: string
@@ -26,27 +24,26 @@ type PeopleDropdownInputProps = {
 
 export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownInputProps) {
   const [open, setOpen] = useState(false)
-  const [personId, setPersonId] = useState('')
   const [people, setPeople] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function fetchPeople() {
-      try {
-        const response = await getPeople()
-        if (response.success) {
-          setPeople(response.success)
-        } else if (response.error) {
-          setError(response.error)
-        }
-      } catch (err) {
-        setError('Failed fetching people')
-      } finally {
-        setLoading(false)
+  const fetchPeople = async () => {
+    try {
+      const response = await getPeople()
+      if (response.success) {
+        setPeople(response.success)
+      } else if (response.error) {
+        setError(response.error)
       }
+    } catch (err) {
+      setError('Failed fetching people')
+    } finally {
+      setLoading(false)
     }
-
+  }
+  
+  useEffect(() => {
     fetchPeople()
   }, [])
 
@@ -95,18 +92,13 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
           <CommandList>
             <CommandEmpty className="flex flex-col items-center">
               <div className="flex w-full items-center justify-center p-2 py-4 text-sm">No person found.</div>
-              <Separator />
-              <div className="w-full px-2 pt-2">
-                <PersonModal />
-              </div>
             </CommandEmpty>
             <CommandGroup>
               {people.map((person) => (
                 <CommandItem
                   key={person.id}
                   value={person.id.toString()}
-                  onSelect={(currentValue) => {
-                    // setPersonId(currentValue === personId ? '' : currentValue)
+                  onSelect={() => {
                     onChange(person.name)
                     setOpen(false)
                   }}
@@ -121,7 +113,7 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
                 </CommandItem>
               ))}
               <div className="w-full p-2">
-                <PersonModal />
+                <CreatePersonDialog onPersonAdded={fetchPeople} />
               </div>
             </CommandGroup>
           </CommandList>
