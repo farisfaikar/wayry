@@ -5,9 +5,9 @@ WAYRY (Short for Why Are You Repeating Yourself) is an app where you can track t
 
 ### Try the app at: [wayry.vercel.app](https://wayry.vercel.app)
 
-Guest: You may use the app without being logged in
+Guest: You may use the app perfectly fine without having to log in...
 
-Sign in: ...or you can save person and sentence data in the dashboard that would be unlocked once you have logged in!
+Sign in: ...or you can login to unlock extra features such as saving person and sentence data in the dashboard!
 
 ## 💻 Development
 
