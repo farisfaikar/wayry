@@ -1,11 +1,11 @@
 import { badgeVariants } from '@/components/ui/badge'
 import Link from 'next/link'
 import { MoveUpRight, Menu, SquareArrowOutUpRight } from 'lucide-react'
-import { 
-  Sheet, 
-  SheetClose, 
-  SheetContent, 
-  SheetHeader, 
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
   SheetTrigger,
   SheetFooter,
 } from '@/components/ui/sheet'
@@ -28,7 +28,7 @@ export default async function Navbar() {
   ]
 
   return (
-    <nav className="fixed flex h-12 w-full items-center justify-center border-b border-neutral-700 bg-neutral-950/50 backdrop-blur-md">
+    <nav className="fixed z-30 flex h-12 w-full items-center justify-center border-b border-neutral-700 bg-neutral-950/50 backdrop-blur-md">
       <div className="flex w-full max-w-2xl items-center justify-between gap-10 p-5">
         <div className="flex items-center gap-4">
           <a href="/">WAYRY</a>
@@ -43,7 +43,7 @@ export default async function Navbar() {
         </div>
 
         {/* Mobile navigation */}
-        <div className="flex sm:hidden items-center gap-5">
+        <div className="flex items-center gap-5 sm:hidden">
           {!session ? (
             <Link key="/auth/login" href="/api/auth/signin" className="text-neutral-300">
               Login
@@ -55,7 +55,7 @@ export default async function Navbar() {
             <SheetTrigger asChild>
               <Menu />
             </SheetTrigger>
-            <SheetContent className="flex h-full flex-col justify-between w-48">
+            <SheetContent className="flex h-full w-48 flex-col justify-between">
               <SheetHeader className="mt-5 h-full">
                 <SheetClose asChild key="WAYRY">
                   <Link href="/" className="text-right text-xl font-bold">
