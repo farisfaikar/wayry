@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button'
 import { CirclePlus } from 'lucide-react'
 import type { Metadata } from 'next'
 
-export const revalidate = 0 // Disable caching in Next.js
+// export const revalidate = 0 // Disable caching in Next.js
 
 export const metadata: Metadata = {
   title: 'What the hell are you looking for?',
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
             <AccordionTrigger>{person.name !== '' ? person.name : <i>Unknown</i>}</AccordionTrigger>
             <AccordionContent>
               {person.sentences.map((sentence) => (
-                <div>
+                <div key={sentence.id}>
                   <div className="flex items-center justify-between">
                     <span className="text-neutral-500">Sentence</span>
                     <span className="text-xl font-bold">{sentence.sentence}</span>
