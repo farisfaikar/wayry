@@ -114,7 +114,7 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                       <ChevronDown size={18} />
                     )}
                   </Button>
-                  <EditPersonDialog personId={person.id} />
+                  <EditPersonDialog personId={person.id} personPrevName={person.name} />
                   <Button 
                     variant="destructive"
                     onClick={() => {

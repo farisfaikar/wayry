@@ -16,8 +16,8 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { editPerson } from '@/server/actions/dashboard-actions'
 
-export default function EditPersonDialog({ personId }: { personId: number }) {
-  const [name, setName] = useState('')
+export default function EditPersonDialog({ personId, personPrevName }: { personId: number, personPrevName: string }) {
+  const [name, setName] = useState(personPrevName)
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
