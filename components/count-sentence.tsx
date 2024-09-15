@@ -176,7 +176,7 @@ export default function CountSentence({ className = '' }: CountSentenceProps) {
           variant="outline"
           onClick={handleCreateSentence}
           className="flex w-full gap-2"
-          disabled={isLoading || !session}
+          disabled={isLoading || !session || !isPlaying}
         >
           {isLoading ? (
             <>

@@ -17,6 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import PeopleDropdownInput from "@/components/people-dropdown-input"
 import { Session } from "next-auth"
+import { useState } from "react"
 
 const formSchema = z.object({
   sentence: z.string().min(1, 'Sentence is required.'),
@@ -30,6 +31,7 @@ type SentenceFormProps = {
 
 export default function SentenceForm({ session, className = '' }: SentenceFormProps) {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   // Define form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,6 +44,7 @@ export default function SentenceForm({ session, className = '' }: SentenceFormPr
 
   // Define submit handler
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    setLoading(true)
     router.push(
       `/count?sentence=${encodeURIComponent(values.sentence)}&person=${encodeURIComponent(values.person || '')}`,
     )
@@ -98,8 +101,8 @@ export default function SentenceForm({ session, className = '' }: SentenceFormPr
             />
           )
         }
-        <Button type="submit" className="w-full sm:w-1/3">
-          Count
+        <Button type="submit" className="w-full sm:w-1/3" disabled={loading}>
+          {loading ? 'Redirecting...' : 'Count'}
         </Button>
       </form>
     </Form>
