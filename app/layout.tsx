@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import Navbar from '@/components/nav/navbar'
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: 'Why Are You Repeating Yourself?',
@@ -21,6 +22,7 @@ export default function RootLayout({
           <main className="mx-auto max-w-2xl p-5 pt-16">
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
