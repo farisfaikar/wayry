@@ -164,7 +164,28 @@ const people = [
   },
 ]
 
-export default function SentenceTable() {
+type Sentence = {
+  id: number
+  personId: number
+  sentence: string
+  sentenceCount: number
+  elapsedTime: number
+  sentencesPerMinute: number
+}
+
+type Person = {
+  id: number
+  userId: string
+  name: string
+  sentenceCount: number
+  sentences: Sentence[]
+}
+
+type SentenceTableProps = {
+  people: Person[]
+}
+
+export default function SentenceTable({ people }: SentenceTableProps) {
   const [expandedRows, setExpandedRows] = useState<number[]>([])
 
   const toggleRow = (id: number) => {
