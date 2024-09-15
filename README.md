@@ -1,8 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WAYRY
+WAYRY (Short for Why Are You Repeating Yourself) is an app where you can track the speech patterns of a person! A totally very useful app with many benefits and not useless or weird at all!
 
-## Getting Started
+## ✨ Why Are You Repeating Yourself?
 
-First, run the development server:
+### Try the app at: [wayry.vercel.app](https://wayry.vercel.app)
+
+Guest: You may use the app without being logged in
+
+Sign in: ...or you can save person and sentence data in the dashboard that would be unlocked once you have logged in!
+
+## 💻 Development
+
+1. First, run the development server:
 
 ```bash
 npm run dev
@@ -13,24 +22,31 @@ pnpm dev
 # or
 bun dev
 ```
+> I use `npm` for this projet, but feel free to also try using `yarn`, `pnpm`, or `bun`. Do tell me if anything breaks :)
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project **USED** to use [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font... before for some reason it got buggy so I had to remove it :(
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Contributing
 
-## Learn More
+Yea... lets wait for hacktoberfest before you guys can start contributing 🤗. Or actually just contribute whenever, I don't mind.
 
-To learn more about Next.js, take a look at the following resources:
+## Author
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+👤 **Faris Faikar**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Github: [@farisfaikar](https://github.com/farisfaikar)
 
-## Deploy on Vercel
+## Show your support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Please ⭐️ this repository if this project ~~helped you~~ makes you laugh!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributors
+
+Yes, please contribute so that I can have an excuse to expand this section 🙂
+
+## License
+
+Copyright © 2021 [farisfaikar](https://github.com/farisfaikar). <br/>
+[MIT](https://choosealicense.com/licenses/mit/)
