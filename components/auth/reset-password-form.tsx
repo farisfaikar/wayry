@@ -19,8 +19,8 @@ import { z } from 'zod'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
-import ErrorAlert from "@/components/error-alert"
-import SuccessAlert from "@/components/success-alert"
+import ErrorAlert from "@/components/alerts/error-alert"
+import SuccessAlert from "@/components/alerts/success-alert"
 import { resetPassword } from "@/server/actions/reset-password"
 import { useSearchParams } from "next/navigation"
 

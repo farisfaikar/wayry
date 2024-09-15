@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import getPeople from '@/server/actions/get-people'
-import { CreatePersonDialog } from "@/components/create-person-dialog"
+import { CreatePersonDialog } from "@/components/dialogs/create-person-dialog"
 
 type PeopleDropdownInputProps = {
   value: string

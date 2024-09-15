@@ -22,8 +22,8 @@ import { emailSignIn } from '@/server/actions/email-signin'
 import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
-import ErrorAlert from "@/components/error-alert"
-import SuccessAlert from "@/components/success-alert"
+import ErrorAlert from "@/components/alerts/error-alert"
+import SuccessAlert from "@/components/alerts/success-alert"
 
 export default function LoginForm() {
   const [ error, setError ] = useState('')

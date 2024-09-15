@@ -14,9 +14,9 @@ import { Button } from '@/components/ui/button'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import { deletePerson, editPerson } from "@/server/actions/dashboard-actions"
-import DeletePersonDialog from '@/components/delete-person-dialog'
+import DeletePersonDialog from '@/components/dialogs/delete-person-dialog'
 import { useToast } from "@/hooks/use-toast"
-import RenamePersonDialog from "@/components/rename-person-dialog"
+import RenamePersonDialog from "@/components/dialogs/rename-person-dialog"
 
 type Sentence = {
   id: number

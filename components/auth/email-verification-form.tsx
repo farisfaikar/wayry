@@ -4,8 +4,8 @@ import AuthCard from '@/components/auth/auth-card'
 import { emailVerification } from '@/server/actions/tokens'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import SuccessAlert from "@/components/success-alert"
-import ErrorAlert from "@/components/error-alert"
+import SuccessAlert from "@/components/alerts/success-alert"
+import ErrorAlert from "@/components/alerts/error-alert"
 
 export const EmailVerificationForm = () => {
   const token = useSearchParams().get('token') || ''

@@ -22,8 +22,8 @@ import { useAction } from 'next-safe-action/hooks'
 import { cn } from '@/lib/utils'
 import { useState } from "react"
 import { emailRegister } from "@/server/actions/email-register"
-import SuccessAlert from "@/components/success-alert"
-import ErrorAlert from "@/components/error-alert"
+import SuccessAlert from "@/components/alerts/success-alert"
+import ErrorAlert from "@/components/alerts/error-alert"
 
 export default function RegisterForm() {
   const [ error, setError ] = useState('')
