@@ -52,8 +52,8 @@ export default function SentenceTable({ people }: SentenceTableProps) {
   return (
     <Table>
       <TableCaption>A list of your human collection.</TableCaption>
-      <TableHeader>
-        <TableRow>
+      <TableHeader className="hover:bg-transparent">
+        <TableRow className="hover:bg-transparent">
           <TableHead className="hidden sm:table-cell">No.</TableHead>
           <TableHead className="sm:text-left text-center">Name</TableHead>
           <TableHead className="hidden text-center sm:table-cell">Sentence Count</TableHead>
