@@ -6,11 +6,7 @@ import { auth } from '@/server/auth'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 
-type Data = {
-  name: string
-}
-
-export default async function createPerson(data: Data) {
+export default async function createPerson(data: { name: string }) {
   const name = data.name
   const session = await auth()
   const userEmail = session?.user?.email
