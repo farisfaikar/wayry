@@ -22,7 +22,7 @@ pnpm dev
 # or
 bun dev
 ```
-> I use `npm` for this projet, but feel free to also try using `yarn`, `pnpm`, or `bun`. Do tell me if anything breaks :)
+> I use `npm` for this project, but feel free to also try using `yarn`, `pnpm`, or `bun`. Do tell me if anything breaks :)
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
