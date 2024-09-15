@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
@@ -17,26 +16,20 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import PeopleDropdownInput from "@/components/people-dropdown-input"
-import { useSession } from 'next-auth/react'  // Import useSession
+import { Session } from "next-auth"
 
 const formSchema = z.object({
   sentence: z.string().min(1, 'Sentence is required.'),
   person: z.string().nullable(),
 })
 
-type FormDataType = {
-  sentence: string
-  person: string | null
-}
-
 type SentenceFormProps = {
+  session: Session | null
   className?: string
 }
 
-export default function SentenceForm({ className = '' }: SentenceFormProps) {
-  const [formData, setFormData] = useState<FormDataType>({ sentence: '', person: '' })
+export default function SentenceForm({ session, className = '' }: SentenceFormProps) {
   const router = useRouter()
-  const { data: session, status } = useSession() // Get session data
 
   // Define form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,10 +42,6 @@ export default function SentenceForm({ className = '' }: SentenceFormProps) {
 
   // Define submit handler
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    setFormData({
-      ...values,
-      person: values.person ?? ''
-    })
     router.push(
       `/count?sentence=${encodeURIComponent(values.sentence)}&person=${encodeURIComponent(values.person || '')}`,
     )
@@ -76,7 +65,7 @@ export default function SentenceForm({ className = '' }: SentenceFormProps) {
           )}
         />
         {
-          !session && status !== 'loading'
+          !session
           ? (
             <FormField
               control={form.control}
