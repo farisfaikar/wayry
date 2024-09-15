@@ -40,7 +40,7 @@ export default function AvatarDropdown({ user }: Session) {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="flex gap-1">
+            <DropdownMenuItem className="flex gap-1" asChild>
               <Link href="/dashboard">Dashboard</Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
