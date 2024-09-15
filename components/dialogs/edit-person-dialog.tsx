@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { editPerson } from '@/server/actions/dashboard-actions'
 
-export default function CreatePersonDialog({ personId }: { personId: number }) {
+export default function EditPersonDialog({ personId }: { personId: number }) {
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
@@ -51,7 +51,7 @@ export default function CreatePersonDialog({ personId }: { personId: number }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex w-full items-center gap-2">
+        <Button variant="outline" className="flex w-auto items-center gap-2">
           Rename
         </Button>
       </DialogTrigger>

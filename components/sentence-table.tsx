@@ -16,7 +16,7 @@ import { useState } from 'react'
 import { deletePerson, editPerson } from "@/server/actions/dashboard-actions"
 import DeletePersonDialog from '@/components/dialogs/delete-person-dialog'
 import { useToast } from "@/hooks/use-toast"
-import RenamePersonDialog from "@/components/dialogs/rename-person-dialog"
+import EditPersonDialog from "@/components/dialogs/edit-person-dialog"
 
 type Sentence = {
   id: number
@@ -114,7 +114,7 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                       <ChevronDown size={18} />
                     )}
                   </Button>
-                  <RenamePersonDialog personId={person.id} />
+                  <EditPersonDialog personId={person.id} />
                   <Button 
                     variant="destructive"
                     onClick={() => {
