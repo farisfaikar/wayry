@@ -53,47 +53,67 @@ export async function editPerson(personId: number, personName: string) {
 }
 
 export async function deleteSentence(sentenceId: number) {
+  // Auth check
+  const session = await auth()
+  const user = session?.user
 
-}
+  if (!user) return { error: 'User not authenticated, so fuck off (respectfully)' }
 
-export async function editSentence(sentenceId: number) {
-
-}
-
-// export default async function createSentence(data: Data) {
-//   const name = data.person
-//   const sentence = data.sentence
-//   const sentenceCount = data.sentenceCount
-//   const elapsedTime = data.elapsedTime
-//   const sentencesPerMinute = Number(data.sentencesPerMinute.toFixed(2))
-//   const session = await auth()
-//   const userEmail = session?.user?.email
+  // Check if user owns the person or not
+  const selectedSentence = await db.query.sentences.findFirst({
+    where: eq(sentences.id, sentenceId),
+    with: {
+      person: true,
+    },
+  });
+    
+  if (!selectedSentence) return { error: "This person ain't yours fool" }
   
-//   const user = await db.query.users.findFirst({
-//     where: eq(users.email, userEmail ?? ''),
-//   })
+  // Mutilate the person's tongue so that others may witness and learn from their blunders
+  const deletedPersonId = await db
+    .delete(sentences)
+    .where(
+      and(
+        eq(sentences.id, sentenceId),
+        eq(sentences.personId, selectedSentence.person.id)
+      )
+    )
+    .returning({ deletedPersonId: sentences.id });
 
-//   const person = await db.query.people.findFirst({
-//     where: eq(people.name, name)
-//   })
+  revalidatePath('/dashboard')
+  
+  return { success: deletedPersonId }
+}
 
-//   if (!session) return { error: 'Please login to create sentence' }
+export async function editSentence(sentenceId: number, sentence: string) {
+  // Auth check
+  const session = await auth()
+  const user = session?.user
 
-//   if (!sentence) {
-//     return { error: 'No sentences found.' }
-//   }
+  if (!user) return { error: 'User not authenticated, so fuck off (respectfully)' }
 
-//   if (!user) return { error: 'User not found' }
+  // Check if user owns the person or not
+  const selectedSentence = await db.query.sentences.findFirst({
+    where: eq(sentences.id, sentenceId),
+    with: {
+      person: true,
+    },
+  });
+    
+  if (!selectedSentence) return { error: "This person ain't yours fool" }
 
-//   const insertedSentence = await db.insert(sentences).values({
-//     personId: person?.id ?? 0,
-//     sentence,
-//     sentenceCount,
-//     elapsedTime,
-//     sentencesPerMinute,
-//   })
+  const updatedSentenceId = await db
+    .update(sentences)
+    .set({ sentence })
+    .where(
+      and(
+        eq(sentences.id, sentenceId),
+        eq(sentences.personId, selectedSentence.person.id)
+      )
+    )
+    .returning({ updatedPersonId: sentences.id })
 
-//   const plainInsertedSentence = JSON.parse(JSON.stringify(insertedSentence))
+  revalidatePath('/dashboard')
 
-//   return { success: plainInsertedSentence }
-// }
+  return { success: updatedSentenceId }
+}

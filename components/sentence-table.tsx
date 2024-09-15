@@ -13,10 +13,12 @@ import {
 import { Button } from '@/components/ui/button'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
-import { deletePerson, editPerson } from "@/server/actions/dashboard-actions"
+import { deletePerson, editPerson } from '@/server/actions/dashboard-actions'
 import DeletePersonDialog from '@/components/dialogs/delete-person-dialog'
-import { useToast } from "@/hooks/use-toast"
-import EditPersonDialog from "@/components/dialogs/edit-person-dialog"
+import { useToast } from '@/hooks/use-toast'
+import EditPersonDialog from '@/components/dialogs/edit-person-dialog'
+import EditSentenceDialog from '@/components/dialogs/edit-sentence-dialog'
+import DeleteSentenceDialog from "@/components/dialogs/delete-sentence-dialog"
 
 type Sentence = {
   id: number
@@ -60,7 +62,7 @@ export default function SentenceTable({ people }: SentenceTableProps) {
           title: 'Fuck Fuck Fuck',
           description: error,
         })
-      } 
+      }
       if (success) {
         toast({
           title: 'Person slained',
@@ -70,11 +72,6 @@ export default function SentenceTable({ people }: SentenceTableProps) {
       setIsDeleteDialogOpen(false)
       setPersonToDelete(null)
     }
-  }  
-  
-  const handleEditSentence = (personId: number, sentenceId: number) => {
-    console.log(`Delete sentence ${sentenceId} for person ${personId}`)
-    // Implement delete functionality here
   }
 
   const handleDeleteSentence = (personId: number, sentenceId: number) => {
@@ -102,9 +99,9 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                 <TableCell>{person.name}</TableCell>
                 <TableCell className="text-center">{person.sentences.length}</TableCell>
                 <TableCell className="flex justify-end gap-2">
-                  <Button 
-                    variant="outline" 
-                    className="p-1 px-2" 
+                  <Button
+                    variant="outline"
+                    className="p-1 px-2"
                     onClick={() => toggleRow(person.id)}
                     disabled={person.sentences.length === 0}
                   >
@@ -115,7 +112,7 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                     )}
                   </Button>
                   <EditPersonDialog personId={person.id} personPrevName={person.name} />
-                  <Button 
+                  <Button
                     variant="destructive"
                     onClick={() => {
                       setPersonToDelete(person)
@@ -131,7 +128,10 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                   <TableCell colSpan={4} className="bg-muted/40 p-4">
                     <div className="space-y-4">
                       {person.sentences.map((sentence) => (
-                        <div key={sentence.id} className="grid grid-cols-[1fr,auto] gap-4 border-b border-muted-foreground/20 pb-4 last:border-b-0 last:pb-0">
+                        <div
+                          key={sentence.id}
+                          className="grid grid-cols-[1fr,auto] gap-4 border-b border-muted-foreground/20 pb-4 last:border-b-0 last:pb-0"
+                        >
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <p className="font-semibold">Sentence</p>
@@ -151,22 +151,8 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                             </div>
                           </div>
                           <div className="flex flex-col justify-center gap-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="w-20"
-                              onClick={() => handleEditSentence(person.id, sentence.id)}
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              className="w-20"
-                              onClick={() => handleDeleteSentence(person.id, sentence.id)}
-                            >
-                              Delete
-                            </Button>
+                            <EditSentenceDialog key={sentence.id} sentenceId={sentence.id} prevSentence={sentence.sentence} />
+                            <DeleteSentenceDialog key={sentence.id} sentenceId={sentence.id} />
                           </div>
                         </div>
                       ))}
