@@ -15,15 +15,17 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { CirclePlus } from 'lucide-react'
 import createPerson from '@/server/actions/create-person'
-import SuccessAlert from '@/components/success-alert'
-import ErrorAlert from '@/components/error-alert'
+import { useToast } from '@/hooks/use-toast'
 
-export function PersonModal() {
+type PersonModalProps = {
+  onPersonAdded: () => void;
+};
+
+export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
   const [open, setOpen] = useState(false)
+  const { toast } = useToast()
 
   const handleSubmit = async () => {
     setLoading(true)
@@ -32,15 +34,20 @@ export function PersonModal() {
       // Call the server action to create a person
       const response = await createPerson({ name })
 
-      if (!response.success) {
-        setError(response.error as string)
-      } else {
+      if (response.success) {
         setName('')
-        setSuccess('Successfully kidnapped a person!')
+        toast({
+          title: 'Yay Yay Yay',
+          description: 'Successfully kidnapped a person!',
+        })
         setOpen(false)
+        onPersonAdded();
       }
     } catch (err) {
-      setError('An error occurred')
+      toast({
+        title: 'Nay Nay Nay',
+        description: 'Failed to kidnap person :(',
+      })
     } finally {
       setLoading(false)
     }
@@ -71,10 +78,6 @@ export function PersonModal() {
               className="col-span-3"
             />
           </div>
-        </div>
-        <div className="w-full -mt-10">
-          <SuccessAlert message={success} />
-          <ErrorAlert message={error} />
         </div>
         <DialogFooter>
           <Button type="button" onClick={handleSubmit} disabled={loading || !name}>
