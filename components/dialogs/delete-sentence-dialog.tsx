@@ -36,6 +36,7 @@ export default function DeleteSentenceDialog({ sentenceId }: { sentenceId: numbe
     } catch (err) {
       console.log(err)
       toast({
+        variant: 'destructive',
         title: 'Nay Nay Nay',
         description: 'Failed to mutilate their tongue',
       })
@@ -59,7 +60,7 @@ export default function DeleteSentenceDialog({ sentenceId }: { sentenceId: numbe
           Shall you have their tongue?
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             Perchance not
           </Button>

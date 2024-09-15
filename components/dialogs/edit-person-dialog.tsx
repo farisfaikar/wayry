@@ -40,6 +40,7 @@ export default function EditPersonDialog({ personId, personPrevName }: { personI
     } catch (err) {
       console.log(err)
       toast({
+        variant: 'destructive',
         title: 'Nay Nay Nay',
         description: 'Failed to rename person :(',
       })
@@ -57,7 +58,7 @@ export default function EditPersonDialog({ personId, personPrevName }: { personI
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>What would you rename this poor fellow?</DialogTitle>
+          <DialogTitle>Rename this poor fellow?</DialogTitle>
           <DialogDescription>
             You are, to assign this person another name. This person has lived all their life
             bearing this name, and you — god-wannabe — have the impudence to what-have-you rename this
@@ -76,7 +77,7 @@ export default function EditPersonDialog({ personId, personPrevName }: { personI
             className="col-span-3"
           />
         </div>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             Perchance not
           </Button>

@@ -54,14 +54,14 @@ export default function DeletePersonDialog({ personId }: { personId: number }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Are you sure you want to lynch this person?</DialogTitle>
+          <DialogTitle>Lynch this person?</DialogTitle>
           <DialogDescription>
             This action cannot be undone. I repeat this action cannot be undone. You will permanently remove
             this person from this world, including all of their other-worldly connections. The souls, those who
             are attached to this person will haunt you for the rest of your life. Are you sure?
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             Perchance not
           </Button>

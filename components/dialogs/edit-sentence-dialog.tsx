@@ -16,7 +16,13 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { editSentence } from '@/server/actions/dashboard-actions'
 
-export default function EditSentenceDialog({ sentenceId, prevSentence }: { sentenceId: number, prevSentence: string }) {
+export default function EditSentenceDialog({
+  sentenceId,
+  prevSentence,
+}: {
+  sentenceId: number
+  prevSentence: string
+}) {
   const [name, setName] = useState(prevSentence)
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
@@ -40,6 +46,7 @@ export default function EditSentenceDialog({ sentenceId, prevSentence }: { sente
     } catch (err) {
       console.log(err)
       toast({
+        variant: 'destructive',
         title: 'Nay Nay Nay',
         description: 'Failed to stretch the tongue',
       })
@@ -57,7 +64,7 @@ export default function EditSentenceDialog({ sentenceId, prevSentence }: { sente
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>What would you change this sentence to?</DialogTitle>
+          <DialogTitle>Change sentence?</DialogTitle>
           <DialogDescription>
             You dare alter someone&apos;s speech. At this point, have at you, I have no care.
           </DialogDescription>
@@ -74,7 +81,7 @@ export default function EditSentenceDialog({ sentenceId, prevSentence }: { sente
             className="col-span-3"
           />
         </div>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             Perchance not
           </Button>

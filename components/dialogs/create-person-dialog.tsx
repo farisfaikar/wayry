@@ -18,8 +18,8 @@ import createPerson from '@/server/actions/create-person'
 import { useToast } from '@/hooks/use-toast'
 
 type PersonModalProps = {
-  onPersonAdded: () => void;
-};
+  onPersonAdded: () => void
+}
 
 export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
   const [name, setName] = useState('')
@@ -41,10 +41,11 @@ export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
           description: 'Successfully kidnapped a person!',
         })
         setOpen(false)
-        onPersonAdded();
+        onPersonAdded()
       }
     } catch (err) {
       toast({
+        variant: 'destructive',
         title: 'Nay Nay Nay',
         description: 'Failed to kidnap person :(',
       })
@@ -62,24 +63,25 @@ export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Person</DialogTitle>
+          <DialogTitle>Kidnap person</DialogTitle>
           <DialogDescription>Add a person to your human collection.</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input
-              id="name"
-              placeholder="John Doe"
-              value={name}
-              onChange={(e) => setName(e.target.value)} // Capture input value
-              className="col-span-3"
-            />
-          </div>
+        <div className="flex w-full items-center justify-between gap-4">
+          <Label htmlFor="name" className="text-right">
+            Name
+          </Label>
+          <Input
+            id="name"
+            placeholder="John Doe"
+            value={name}
+            onChange={(e) => setName(e.target.value)} // Capture input value
+            className="col-span-3"
+          />
         </div>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Perchance not
+          </Button>
           <Button type="button" onClick={handleSubmit} disabled={loading || !name}>
             {loading ? 'Kidnapping...' : 'Kidnap person (I mean save)'}
           </Button>
