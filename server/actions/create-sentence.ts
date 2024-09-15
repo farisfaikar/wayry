@@ -4,7 +4,6 @@ import { db } from '@/server'
 import { people, sentences, users } from '@/server/schema'
 import { auth } from '@/server/auth'
 import { eq } from 'drizzle-orm'
-import { revalidatePath } from 'next/cache'
 
 type Data = {
   person: string
@@ -48,8 +47,6 @@ export default async function createSentence(data: Data) {
   })
 
   const plainInsertedSentence = JSON.parse(JSON.stringify(insertedSentence))
-
-  revalidatePath('/dashboard')
 
   return { success: plainInsertedSentence }
 }
