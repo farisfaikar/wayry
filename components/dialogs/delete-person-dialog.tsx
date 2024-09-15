@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -6,21 +9,52 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { useToast } from '@/hooks/use-toast'
+import { deletePerson } from '@/server/actions/dashboard-actions'
 
-interface DeletePersonDialogProps {
-  isOpen: boolean
-  onClose: () => void
-  onConfirm: () => void
-  personName: string
-}
+export default function DeletePersonDialog({ personId }: { personId: number }) {
+  const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
+  const { toast } = useToast()
 
-export default function DeletePersonDialog({ isOpen, onClose, onConfirm, personName }: DeletePersonDialogProps) {
+  const handleSubmit = async () => {
+    setLoading(true)
+
+    try {
+      // Call the server action to create a person
+      const response = await deletePerson(personId)
+
+      if (response.success) {
+        toast({
+          title: 'Yay Yay Yay',
+          description: 'Person successfully removed from this world',
+        })
+        setOpen(false)
+      }
+    } catch (err) {
+      console.log(err)
+      toast({
+        variant: 'destructive',
+        title: 'Nay Nay Nay',
+        description: "Person escaped the grim reaper's scythe",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="destructive" className="flex w-auto items-center gap-2">
+          Delete
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Are you sure you want to delete {personName}?</DialogTitle>
+          <DialogTitle>Are you sure you want to lynch this person?</DialogTitle>
           <DialogDescription>
             This action cannot be undone. I repeat this action cannot be undone. You will permanently remove
             this person from this world, including all of their other-worldly connections. The souls, those who
@@ -28,11 +62,11 @@ export default function DeletePersonDialog({ isOpen, onClose, onConfirm, personN
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={() => setOpen(false)}>
             Perchance not
           </Button>
-          <Button variant="destructive" onClick={onConfirm}>
-            They shall meet god
+          <Button variant="destructive" onClick={handleSubmit} disabled={loading}>
+            {loading ? 'Lynching...' : 'They shall meet god'}
           </Button>
         </DialogFooter>
       </DialogContent>
