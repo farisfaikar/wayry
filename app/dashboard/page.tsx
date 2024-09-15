@@ -1,13 +1,13 @@
-import getPeopleWithSentences from '@/server/actions/get-people-with-sentences'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { CirclePlus } from 'lucide-react'
-import type { Metadata } from 'next'
+import getPeopleWithSentences from "@/server/actions/get-people-with-sentences"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { CirclePlus } from "lucide-react"
+import type { Metadata } from "next"
 import SentenceTable from "@/components/sentence-table"
 
 export const metadata: Metadata = {
-  title: 'What the hell are you looking for?',
-  description: 'These are just a bunch of useless data.',
+  title: "What the hell are you looking for?",
+  description: "These are just a bunch of useless data.",
 }
 
 export default async function DashboardPage() {
@@ -34,8 +34,6 @@ export default async function DashboardPage() {
   }
 
   if (success) {
-    return (
-      <SentenceTable people={success} />
-    )
+    return <SentenceTable people={success} />
   }
 }

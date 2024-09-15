@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,9 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { useToast } from '@/hooks/use-toast'
-import { deleteSentence } from '@/server/actions/dashboard-actions'
+} from "@/components/ui/dialog"
+import { useToast } from "@/hooks/use-toast"
+import { deleteSentence } from "@/server/actions/dashboard-actions"
 
 export default function DeleteSentenceDialog({ sentenceId }: { sentenceId: number }) {
   const [loading, setLoading] = useState(false)
@@ -28,17 +28,17 @@ export default function DeleteSentenceDialog({ sentenceId }: { sentenceId: numbe
 
       if (response.success) {
         toast({
-          title: 'Yay Yay Yay',
-          description: 'Successfully mutilated their tongue!',
+          title: "Yay Yay Yay",
+          description: "Successfully mutilated their tongue!",
         })
         setOpen(false)
       }
     } catch (err) {
       console.log(err)
       toast({
-        variant: 'destructive',
-        title: 'Nay Nay Nay',
-        description: 'Failed to mutilate their tongue',
+        variant: "destructive",
+        title: "Nay Nay Nay",
+        description: "Failed to mutilate their tongue",
       })
     } finally {
       setLoading(false)
@@ -56,8 +56,8 @@ export default function DeleteSentenceDialog({ sentenceId }: { sentenceId: numbe
         <DialogHeader>
           <DialogTitle>Would you like this person&apos;s tongue gone?</DialogTitle>
           <DialogDescription>
-          This person has said sentences that are blasphemous to you my lord. 
-          Shall you have their tongue?
+            This person has said sentences that are blasphemous to you my lord. Shall you have their
+            tongue?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
@@ -65,7 +65,7 @@ export default function DeleteSentenceDialog({ sentenceId }: { sentenceId: numbe
             Perchance not
           </Button>
           <Button variant="destructive" onClick={handleSubmit} disabled={loading}>
-            {loading ? 'Mutilating...' : 'I shall cook it'}
+            {loading ? "Mutilating..." : "I shall cook it"}
           </Button>
         </DialogFooter>
       </DialogContent>

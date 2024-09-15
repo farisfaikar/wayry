@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,11 +10,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useToast } from '@/hooks/use-toast'
-import { editSentence } from '@/server/actions/dashboard-actions'
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
+import { editSentence } from "@/server/actions/dashboard-actions"
 
 export default function EditSentenceDialog({
   sentenceId,
@@ -36,19 +36,19 @@ export default function EditSentenceDialog({
       const response = await editSentence(sentenceId, name)
 
       if (response.success) {
-        setName('')
+        setName("")
         toast({
-          title: 'Yay Yay Yay',
-          description: 'Successfully altered the sentence!',
+          title: "Yay Yay Yay",
+          description: "Successfully altered the sentence!",
         })
         setOpen(false)
       }
     } catch (err) {
       console.log(err)
       toast({
-        variant: 'destructive',
-        title: 'Nay Nay Nay',
-        description: 'Failed to stretch the tongue',
+        variant: "destructive",
+        title: "Nay Nay Nay",
+        description: "Failed to stretch the tongue",
       })
     } finally {
       setLoading(false)
@@ -86,7 +86,7 @@ export default function EditSentenceDialog({
             Perchance not
           </Button>
           <Button variant="default" onClick={handleSubmit} disabled={loading || !name}>
-            {loading ? 'Altering...' : 'I have your tongue'}
+            {loading ? "Altering..." : "I have your tongue"}
           </Button>
         </DialogFooter>
       </DialogContent>

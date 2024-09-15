@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import {
   Table,
@@ -9,15 +9,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import { useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
-import EditPersonDialog from '@/components/dialogs/edit-person-dialog'
-import EditSentenceDialog from '@/components/dialogs/edit-sentence-dialog'
-import DeleteSentenceDialog from '@/components/dialogs/delete-sentence-dialog'
-import DeletePersonDialog from '@/components/dialogs/delete-person-dialog'
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { ChevronDown, ChevronUp } from "lucide-react"
+import { useState } from "react"
+import { useMediaQuery } from "react-responsive"
+import EditPersonDialog from "@/components/dialogs/edit-person-dialog"
+import EditSentenceDialog from "@/components/dialogs/edit-sentence-dialog"
+import DeleteSentenceDialog from "@/components/dialogs/delete-sentence-dialog"
+import DeletePersonDialog from "@/components/dialogs/delete-person-dialog"
 
 type Sentence = {
   id: number
@@ -55,9 +55,9 @@ export default function SentenceTable({ people }: SentenceTableProps) {
       <TableHeader className="hover:bg-transparent">
         <TableRow className="hover:bg-transparent">
           <TableHead className="hidden sm:table-cell">No.</TableHead>
-          <TableHead className="sm:text-left text-center">Name</TableHead>
+          <TableHead className="text-center sm:text-left">Name</TableHead>
           <TableHead className="hidden text-center sm:table-cell">Sentence Count</TableHead>
-          <TableHead className="sm:text-right text-center">Actions</TableHead>
+          <TableHead className="text-center sm:text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -93,24 +93,26 @@ export default function SentenceTable({ people }: SentenceTableProps) {
                     {person.sentences.map((sentence) => (
                       <div
                         key={sentence.id}
-                        className="flex flex-col sm:grid grid-cols-[1fr,auto] gap-4 border-b border-muted-foreground/20 pb-4 last:border-b-0 last:pb-0"
+                        className="flex grid-cols-[1fr,auto] flex-col gap-4 border-b border-muted-foreground/20 pb-4 last:border-b-0 last:pb-0 sm:grid"
                       >
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <p className="text-xs">Sentence</p>
-                            <p className="font-semibold text-md">{sentence.sentence}</p>
+                            <p className="text-md font-semibold">{sentence.sentence}</p>
                           </div>
                           <div>
                             <p className="text-xs">Sentence count</p>
-                            <p className="font-semibold text-md">{sentence.sentenceCount}</p>
+                            <p className="text-md font-semibold">{sentence.sentenceCount}</p>
                           </div>
                           <div>
                             <p className="text-xs">Elapsed time</p>
-                            <p className="font-semibold text-md">{sentence.elapsedTime}</p>
+                            <p className="text-md font-semibold">{sentence.elapsedTime}</p>
                           </div>
                           <div>
                             <p className="text-xs">Sentences per minute</p>
-                            <p className="font-semibold text-md">{sentence.sentencesPerMinute?.toFixed(2)}</p>
+                            <p className="text-md font-semibold">
+                              {sentence.sentencesPerMinute?.toFixed(2)}
+                            </p>
                           </div>
                         </div>
                         <div className="flex flex-col justify-center gap-2">

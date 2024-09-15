@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,13 +10,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useToast } from '@/hooks/use-toast'
-import { editPerson } from '@/server/actions/dashboard-actions'
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
+import { editPerson } from "@/server/actions/dashboard-actions"
 
-export default function EditPersonDialog({ personId, personPrevName }: { personId: number, personPrevName: string }) {
+export default function EditPersonDialog({
+  personId,
+  personPrevName,
+}: {
+  personId: number
+  personPrevName: string
+}) {
   const [name, setName] = useState(personPrevName)
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
@@ -30,19 +36,19 @@ export default function EditPersonDialog({ personId, personPrevName }: { personI
       const response = await editPerson(personId, name)
 
       if (response.success) {
-        setName('')
+        setName("")
         toast({
-          title: 'Yay Yay Yay',
-          description: 'Successfully renamed the person!',
+          title: "Yay Yay Yay",
+          description: "Successfully renamed the person!",
         })
         setOpen(false)
       }
     } catch (err) {
       console.log(err)
       toast({
-        variant: 'destructive',
-        title: 'Nay Nay Nay',
-        description: 'Failed to rename person :(',
+        variant: "destructive",
+        title: "Nay Nay Nay",
+        description: "Failed to rename person :(",
       })
     } finally {
       setLoading(false)
@@ -61,8 +67,8 @@ export default function EditPersonDialog({ personId, personPrevName }: { personI
           <DialogTitle>Rename this poor fellow?</DialogTitle>
           <DialogDescription>
             You are, to assign this person another name. This person has lived all their life
-            bearing this name, and you — god-wannabe — have the impudence to what-have-you rename this
-            peasant. Why would you do such a thing? Why?
+            bearing this name, and you — god-wannabe — have the impudence to what-have-you rename
+            this peasant. Why would you do such a thing? Why?
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-between gap-4">
@@ -82,7 +88,7 @@ export default function EditPersonDialog({ personId, personPrevName }: { personI
             Perchance not
           </Button>
           <Button variant="default" onClick={handleSubmit} disabled={loading || !name}>
-            {loading ? 'Renaming...' : 'You are what I command'}
+            {loading ? "Renaming..." : "You are what I command"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import { useEffect, useRef, ReactNode } from 'react'
+import { motion } from "framer-motion"
+import { useEffect, useRef, ReactNode } from "react"
 
 type CountButtonProps = {
   className?: string
@@ -19,26 +19,26 @@ export default function CountButton({ className, onClick, disabled, children }: 
         const offset = e.offsetX
         const left = `${(offset / width) * 100}%`
 
-        spanRef.current.animate({ left }, { duration: 250, fill: 'forwards' })
+        spanRef.current.animate({ left }, { duration: 250, fill: "forwards" })
       }
     }
 
     const handleMouseLeave = () => {
       if (spanRef.current) {
-        spanRef.current.animate({ left: '50%' }, { duration: 100, fill: 'forwards' })
+        spanRef.current.animate({ left: "50%" }, { duration: 100, fill: "forwards" })
       }
     }
 
     const button = btnRef.current
     if (button) {
-      button.addEventListener('mousemove', handleMouseMove)
-      button.addEventListener('mouseleave', handleMouseLeave)
+      button.addEventListener("mousemove", handleMouseMove)
+      button.addEventListener("mouseleave", handleMouseLeave)
     }
 
     return () => {
       if (button) {
-        button.removeEventListener('mousemove', handleMouseMove)
-        button.removeEventListener('mouseleave', handleMouseLeave)
+        button.removeEventListener("mousemove", handleMouseMove)
+        button.removeEventListener("mouseleave", handleMouseLeave)
       }
     }
   }, [])

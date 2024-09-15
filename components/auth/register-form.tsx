@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import AuthCard from '@/components/auth/auth-card'
-import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/password-input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { RegisterSchema } from '@/types/register-schema'
+import AuthCard from "@/components/auth/auth-card"
+import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/password-input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { RegisterSchema } from "@/types/register-schema"
 import {
   Form,
   FormField,
@@ -14,34 +14,34 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { z } from 'zod'
-import { useAction } from 'next-safe-action/hooks'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/form"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { z } from "zod"
+import { useAction } from "next-safe-action/hooks"
+import { cn } from "@/lib/utils"
 import { useState } from "react"
 import { emailRegister } from "@/server/actions/email-register"
 import SuccessAlert from "@/components/alerts/success-alert"
 import ErrorAlert from "@/components/alerts/error-alert"
 
 export default function RegisterForm() {
-  const [ error, setError ] = useState('')
-  const [ success, setSuccess ] = useState('')
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
 
   const { execute, status } = useAction(emailRegister, {
     onSuccess(data) {
       if (data.error) setError(data.error)
       if (data.success) setSuccess(data.success)
-    }
+    },
   })
-  
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
     },
   })
 
@@ -66,11 +66,7 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="John Doe"
-                    type="name"
-                  /> 
+                  <Input {...field} placeholder="John Doe" type="name" />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -117,7 +113,7 @@ export default function RegisterForm() {
           <SuccessAlert message={success} />
           <ErrorAlert message={error} />
           <div className="mt-5">
-            <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
+            <Button className={cn("w-full", status === "executing" ? "animate-pulse" : "")}>
               Register
             </Button>
           </div>

@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,9 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { useToast } from '@/hooks/use-toast'
-import { deletePerson } from '@/server/actions/dashboard-actions'
+} from "@/components/ui/dialog"
+import { useToast } from "@/hooks/use-toast"
+import { deletePerson } from "@/server/actions/dashboard-actions"
 
 export default function DeletePersonDialog({ personId }: { personId: number }) {
   const [loading, setLoading] = useState(false)
@@ -28,16 +28,16 @@ export default function DeletePersonDialog({ personId }: { personId: number }) {
 
       if (response.success) {
         toast({
-          title: 'Yay Yay Yay',
-          description: 'Person successfully removed from this world',
+          title: "Yay Yay Yay",
+          description: "Person successfully removed from this world",
         })
         setOpen(false)
       }
     } catch (err) {
       console.log(err)
       toast({
-        variant: 'destructive',
-        title: 'Nay Nay Nay',
+        variant: "destructive",
+        title: "Nay Nay Nay",
         description: "Person escaped the grim reaper's scythe",
       })
     } finally {
@@ -56,9 +56,10 @@ export default function DeletePersonDialog({ personId }: { personId: number }) {
         <DialogHeader>
           <DialogTitle>Lynch this person?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. I repeat this action cannot be undone. You will permanently remove
-            this person from this world, including all of their other-worldly connections. The souls, those who
-            are attached to this person will haunt you for the rest of your life. Are you sure?
+            This action cannot be undone. I repeat this action cannot be undone. You will
+            permanently remove this person from this world, including all of their other-worldly
+            connections. The souls, those who are attached to this person will haunt you for the
+            rest of your life. Are you sure?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2">
@@ -66,7 +67,7 @@ export default function DeletePersonDialog({ personId }: { personId: number }) {
             Perchance not
           </Button>
           <Button variant="destructive" onClick={handleSubmit} disabled={loading}>
-            {loading ? 'Lynching...' : 'They shall meet god'}
+            {loading ? "Lynching..." : "They shall meet god"}
           </Button>
         </DialogFooter>
       </DialogContent>

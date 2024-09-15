@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { Session } from 'next-auth'
-import { signOut } from 'next-auth/react'
+import { Session } from "next-auth"
+import { signOut } from "next-auth/react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,17 +10,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { LogOut } from 'lucide-react'
-import Link from 'next/link'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+} from "@/components/ui/dropdown-menu"
+import { LogOut } from "lucide-react"
+import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function AvatarDropdown({ user }: Session) {
   const getInitials = (name: string | null | undefined) => {
-    if (!name) return ''
-    const nameParts = name.split(' ')
-    const firstInitial = nameParts[0]?.[0]?.toUpperCase() ?? ''
-    const secondInitial = nameParts[1]?.[0]?.toUpperCase() ?? ''
+    if (!name) return ""
+    const nameParts = name.split(" ")
+    const firstInitial = nameParts[0]?.[0]?.toUpperCase() ?? ""
+    const secondInitial = nameParts[1]?.[0]?.toUpperCase() ?? ""
     return `${firstInitial}${secondInitial}`
   }
 
@@ -29,7 +29,7 @@ export default function AvatarDropdown({ user }: Session) {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild className="cursor-pointer">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user?.image ?? ''} alt={user?.name ?? ''} />
+            <AvatarImage src={user?.image ?? ""} alt={user?.name ?? ""} />
             <AvatarFallback className="text-sm">{getInitials(user?.name)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

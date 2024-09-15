@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -10,19 +10,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { CirclePlus } from 'lucide-react'
-import createPerson from '@/server/actions/create-person'
-import { useToast } from '@/hooks/use-toast'
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { CirclePlus } from "lucide-react"
+import createPerson from "@/server/actions/create-person"
+import { useToast } from "@/hooks/use-toast"
 
 type PersonModalProps = {
   onPersonAdded: () => void
 }
 
 export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
-  const [name, setName] = useState('')
+  const [name, setName] = useState("")
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
@@ -35,19 +35,19 @@ export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
       const response = await createPerson({ name })
 
       if (response.success) {
-        setName('')
+        setName("")
         toast({
-          title: 'Yay Yay Yay',
-          description: 'Successfully kidnapped a person!',
+          title: "Yay Yay Yay",
+          description: "Successfully kidnapped a person!",
         })
         setOpen(false)
         onPersonAdded()
       }
     } catch (err) {
       toast({
-        variant: 'destructive',
-        title: 'Nay Nay Nay',
-        description: 'Failed to kidnap person :(',
+        variant: "destructive",
+        title: "Nay Nay Nay",
+        description: "Failed to kidnap person :(",
       })
     } finally {
       setLoading(false)
@@ -83,7 +83,7 @@ export function CreatePersonDialog({ onPersonAdded }: PersonModalProps) {
             Perchance not
           </Button>
           <Button type="button" onClick={handleSubmit} disabled={loading || !name}>
-            {loading ? 'Kidnapping...' : 'Kidnap person (I mean save)'}
+            {loading ? "Kidnapping..." : "Kidnap person (I mean save)"}
           </Button>
         </DialogFooter>
       </DialogContent>

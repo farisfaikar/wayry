@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
+import { useState } from "react"
 import {
   Card,
   CardContent,
@@ -8,11 +8,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { useRouter } from 'next/navigation'
-import Socials from '@/components/auth/socials'
-import BackButton from '@/components/auth/back-button'
-import { Separator } from '@/components/ui/separator'
+} from "@/components/ui/card"
+import { useRouter } from "next/navigation"
+import Socials from "@/components/auth/socials"
+import BackButton from "@/components/auth/back-button"
+import { Separator } from "@/components/ui/separator"
 
 type CardWrapperProps = {
   children: React.ReactNode
@@ -35,8 +35,8 @@ export default function AuthCard({
     email: string
     password: string
   }>({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   })
 
   const router = useRouter()

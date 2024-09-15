@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import AuthCard from '@/components/auth/auth-card'
-import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/password-input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { LoginSchema } from '@/types/login-schema'
+import AuthCard from "@/components/auth/auth-card"
+import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/password-input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { LoginSchema } from "@/types/login-schema"
 import {
   Form,
   FormField,
@@ -14,33 +14,33 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { z } from 'zod'
-import { emailSignIn } from '@/server/actions/email-signin'
-import { useAction } from 'next-safe-action/hooks'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/form"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { z } from "zod"
+import { emailSignIn } from "@/server/actions/email-signin"
+import { useAction } from "next-safe-action/hooks"
+import { cn } from "@/lib/utils"
 import { useState } from "react"
 import ErrorAlert from "@/components/alerts/error-alert"
 import SuccessAlert from "@/components/alerts/success-alert"
 
 export default function LoginForm() {
-  const [ error, setError ] = useState('')
-  const [ success, setSuccess ] = useState('')
-  
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+
   const { execute, status } = useAction(emailSignIn, {
     onSuccess(data) {
       if (data?.error) setError(data.error)
       if (data?.success) setSuccess(data.success)
-    }
+    },
   })
-  
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   })
 
@@ -99,7 +99,7 @@ export default function LoginForm() {
             <Button variant="link" className="self-start p-0" asChild>
               <Link href="/auth/reset-password-email">Forgot password?</Link>
             </Button>
-            <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
+            <Button className={cn("w-full", status === "executing" ? "animate-pulse" : "")}>
               Login
             </Button>
           </div>

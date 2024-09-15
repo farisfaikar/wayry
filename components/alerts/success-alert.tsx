@@ -1,4 +1,4 @@
-import { CheckCircle } from 'lucide-react'
+import { CheckCircle } from "lucide-react"
 
 export default function SuccessAlert({ message }: { message?: string }) {
   if (!message) return null

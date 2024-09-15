@@ -1,13 +1,13 @@
-'use server'
+"use server"
 
-import { db } from '@/server'
-import { LoginSchema } from '@/types/login-schema'
-import { createSafeActionClient } from 'next-safe-action'
-import { eq } from 'drizzle-orm'
-import { users } from '@/server/schema'
-import { generateEmailVerificationToken } from '@/server/actions/tokens'
-import { sendVerificationEmail } from '@/server/actions/email-verification'
-import { signIn } from '@/server/auth'
+import { db } from "@/server"
+import { LoginSchema } from "@/types/login-schema"
+import { createSafeActionClient } from "next-safe-action"
+import { eq } from "drizzle-orm"
+import { users } from "@/server/schema"
+import { generateEmailVerificationToken } from "@/server/actions/tokens"
+import { sendVerificationEmail } from "@/server/actions/email-verification"
+import { signIn } from "@/server/auth"
 import { AuthError } from "next-auth"
 
 const action = createSafeActionClient()
@@ -20,24 +20,24 @@ export const emailSignIn = action(LoginSchema, async ({ email, password, code })
     })
 
     if (!existingUser || !existingUser.email) {
-      return { error: 'User not found' }
+      return { error: "User not found" }
     }
 
     if (existingUser?.email !== email) {
-      return { error: 'Email not found' }
+      return { error: "Email not found" }
     }
 
     if (!existingUser?.emailVerified) {
       const verificationToken = await generateEmailVerificationToken(existingUser.email)
       await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token)
-      return { success: 'Confirmation email sent!' }
+      return { success: "Confirmation email sent!" }
     }
 
-    console.log('the fuck')
-    await signIn('credentials', {
+    console.log("the fuck")
+    await signIn("credentials", {
       email,
       password,
-      redirectTo: '/',
+      redirectTo: "/",
     })
 
     console.log(email, password, code)
@@ -47,14 +47,14 @@ export const emailSignIn = action(LoginSchema, async ({ email, password, code })
 
     if (error instanceof AuthError) {
       switch (error.type) {
-        case 'CredentialsSignin':
-          return { error: 'Incorrect email or password' }
-        case 'AccessDenied':
+        case "CredentialsSignin":
+          return { error: "Incorrect email or password" }
+        case "AccessDenied":
           return { error: error.message }
-        case 'OAuthSignInError':
+        case "OAuthSignInError":
           return { error: error.message }
         default:
-          return { error: 'Something went wrong :(' }
+          return { error: "Something went wrong :(" }
       }
     }
 

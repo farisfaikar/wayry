@@ -1,5 +1,5 @@
-import CountSentence from '@/components/count-sentence'
-import { SessionProvider } from 'next-auth/react'
+import CountSentence from "@/components/count-sentence"
+import { SessionProvider } from "next-auth/react"
 
 export default function CountPage() {
   return (

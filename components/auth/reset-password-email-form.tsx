@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import AuthCard from '@/components/auth/auth-card'
+import AuthCard from "@/components/auth/auth-card"
 import { Input } from "@/components/ui/input"
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { ResetPasswordEmailSchema } from '@/types/reset-password-email-schema'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { ResetPasswordEmailSchema } from "@/types/reset-password-email-schema"
 import {
   Form,
   FormField,
@@ -13,19 +13,19 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import { z } from 'zod'
-import { useAction } from 'next-safe-action/hooks'
-import { cn } from '@/lib/utils'
-import { useState } from 'react'
-import ErrorAlert from '@/components/alerts/error-alert'
-import SuccessAlert from '@/components/alerts/success-alert'
-import { resetPasswordAction } from '@/server/actions/reset-password-action'
+} from "@/components/ui/form"
+import { Button } from "@/components/ui/button"
+import { z } from "zod"
+import { useAction } from "next-safe-action/hooks"
+import { cn } from "@/lib/utils"
+import { useState } from "react"
+import ErrorAlert from "@/components/alerts/error-alert"
+import SuccessAlert from "@/components/alerts/success-alert"
+import { resetPasswordAction } from "@/server/actions/reset-password-action"
 
 export default function ResetPasswordEmailForm() {
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
 
   const { execute, status } = useAction(resetPasswordAction, {
     onSuccess(data) {
@@ -37,7 +37,7 @@ export default function ResetPasswordEmailForm() {
   const form = useForm<z.infer<typeof ResetPasswordEmailSchema>>({
     resolver: zodResolver(ResetPasswordEmailSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   })
 
@@ -66,7 +66,7 @@ export default function ResetPasswordEmailForm() {
                     {...field}
                     placeholder="johndoe@gmail.com"
                     type="email"
-                    disabled={status === 'executing'}
+                    disabled={status === "executing"}
                     autoComplete="email"
                   />
                 </FormControl>
@@ -76,7 +76,7 @@ export default function ResetPasswordEmailForm() {
             )}
           />
           <div className="flex flex-col justify-between gap-3">
-            <Button className={cn('w-full', status === 'executing' ? 'animate-pulse' : '')}>
+            <Button className={cn("w-full", status === "executing" ? "animate-pulse" : "")}>
               Send password reset email
             </Button>
           </div>

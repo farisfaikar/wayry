@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { useState, useEffect } from 'react'
-import { Check, ChevronsUpDown, Loader, AlertCircle } from 'lucide-react'
+import { useState, useEffect } from "react"
+import { Check, ChevronsUpDown, Loader, AlertCircle } from "lucide-react"
 
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -12,9 +12,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import getPeople from '@/server/actions/get-people'
+} from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import getPeople from "@/server/actions/get-people"
 import { CreatePersonDialog } from "@/components/dialogs/create-person-dialog"
 
 type PeopleDropdownInputProps = {
@@ -37,24 +37,19 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
         setError(response.error)
       }
     } catch (err) {
-      setError('Failed fetching people')
+      setError("Failed fetching people")
     } finally {
       setLoading(false)
     }
   }
-  
+
   useEffect(() => {
     fetchPeople()
   }, [])
 
   if (loading) {
     return (
-      <Button
-        variant="outline"
-        role="button"
-        className="w-full justify-center gap-2"
-        disabled
-      >
+      <Button variant="outline" role="button" className="w-full justify-center gap-2" disabled>
         <Loader className="animate-spin" /> Loading...
       </Button>
     )
@@ -62,12 +57,7 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
 
   if (error) {
     return (
-      <Button
-        variant="destructive"
-        role="button"
-        className="w-full justify-center gap-2"
-        disabled
-      >
+      <Button variant="destructive" role="button" className="w-full justify-center gap-2" disabled>
         <AlertCircle /> Error fetching people
       </Button>
     )
@@ -82,16 +72,18 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {value ? value : 'Select person...'}
+          {value ? value : "Select person..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="sm:w-[634px] w-[280px] p-0">
+      <PopoverContent className="w-[280px] p-0 sm:w-[634px]">
         <Command>
           <CommandInput placeholder="Search person..." />
           <CommandList>
             <CommandEmpty className="flex flex-col items-center">
-              <div className="flex w-full items-center justify-center p-2 py-4 text-sm">No person found.</div>
+              <div className="flex w-full items-center justify-center p-2 py-4 text-sm">
+                No person found.
+              </div>
             </CommandEmpty>
             <CommandGroup>
               {people.map((person) => (
@@ -105,8 +97,8 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
                 >
                   <Check
                     className={cn(
-                      'mr-2 h-4 w-4',
-                      value === person.name ? 'opacity-100' : 'opacity-0',
+                      "mr-2 h-4 w-4",
+                      value === person.name ? "opacity-100" : "opacity-0",
                     )}
                   />
                   {person.name}

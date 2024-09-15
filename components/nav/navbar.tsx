@@ -1,6 +1,6 @@
-import { badgeVariants } from '@/components/ui/badge'
-import Link from 'next/link'
-import { MoveUpRight, Menu, SquareArrowOutUpRight } from 'lucide-react'
+import { badgeVariants } from "@/components/ui/badge"
+import Link from "next/link"
+import { MoveUpRight, Menu, SquareArrowOutUpRight } from "lucide-react"
 import {
   Sheet,
   SheetClose,
@@ -8,9 +8,9 @@ import {
   SheetHeader,
   SheetTrigger,
   SheetFooter,
-} from '@/components/ui/sheet'
-import { auth } from '@/server/auth'
-import AvatarDropdown from './avatar-dropdown'
+} from "@/components/ui/sheet"
+import { auth } from "@/server/auth"
+import AvatarDropdown from "./avatar-dropdown"
 
 export default async function Navbar() {
   const session = await auth()
@@ -22,8 +22,8 @@ export default async function Navbar() {
 
   const navs: Navs[] = [
     {
-      title: 'About',
-      link: '/about',
+      title: "About",
+      link: "/about",
     },
   ]
 
@@ -35,7 +35,7 @@ export default async function Navbar() {
           <Link
             href="https://farisfaikar.vercel.app"
             target="_blank"
-            className={`${badgeVariants({ variant: 'secondary' })} flex gap-1`}
+            className={`${badgeVariants({ variant: "secondary" })} flex gap-1`}
           >
             <p className="hidden sm:flex">Made by Faris Faikar</p>
             <MoveUpRight size={16} />
@@ -49,7 +49,7 @@ export default async function Navbar() {
               Login
             </Link>
           ) : (
-            <AvatarDropdown expires={session?.expires ?? ''} user={session?.user} />
+            <AvatarDropdown expires={session?.expires ?? ""} user={session?.user} />
           )}
           <Sheet>
             <SheetTrigger asChild>
@@ -109,7 +109,7 @@ export default async function Navbar() {
               Login
             </Link>
           ) : (
-            <AvatarDropdown expires={session?.expires ?? ''} user={session?.user} />
+            <AvatarDropdown expires={session?.expires ?? ""} user={session?.user} />
           )}
         </div>
       </div>

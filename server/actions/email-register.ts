@@ -1,13 +1,13 @@
-'use server'
+"use server"
 
-import { RegisterSchema } from '@/types/register-schema'
-import { createSafeActionClient } from 'next-safe-action'
-import bcrypt from 'bcrypt'
-import { db } from '@/server'
-import { eq } from 'drizzle-orm'
-import { users } from '@/server/schema'
-import { generateEmailVerificationToken } from '@/server/actions/tokens'
-import { sendVerificationEmail } from '@/server/actions/email-verification'
+import { RegisterSchema } from "@/types/register-schema"
+import { createSafeActionClient } from "next-safe-action"
+import bcrypt from "bcrypt"
+import { db } from "@/server"
+import { eq } from "drizzle-orm"
+import { users } from "@/server/schema"
+import { generateEmailVerificationToken } from "@/server/actions/tokens"
+import { sendVerificationEmail } from "@/server/actions/email-verification"
 
 const action = createSafeActionClient()
 
@@ -24,9 +24,9 @@ export const emailRegister = action(RegisterSchema, async ({ name, email, passwo
 
       await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token)
 
-      return { success: 'Email confirmation resent' }
+      return { success: "Email confirmation resent" }
     }
-    return { error: 'Email already in use' }
+    return { error: "Email already in use" }
   }
 
   // Logic for when the user is not registered
@@ -40,5 +40,5 @@ export const emailRegister = action(RegisterSchema, async ({ name, email, passwo
 
   await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token)
 
-  return { success: 'Confirmation email sent!' }
+  return { success: "Confirmation email sent!" }
 })
