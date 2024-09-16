@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useSession } from "next-auth/react"
 import CountButton from "./count-button"
 import { MoveLeft } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 type CountSentenceProps = {
   className?: string
@@ -37,6 +38,7 @@ export default function CountSentence({ className = "" }: CountSentenceProps) {
   const sentence = searchParams.get("sentence") || ""
   const person = searchParams.get("person") || ""
   const { data: session, status } = useSession()
+  const { toast } = useToast()
 
   // Start the timer when the component mounts
   useEffect(() => {
@@ -110,9 +112,17 @@ export default function CountSentence({ className = "" }: CountSentenceProps) {
     setIsLoading(false)
 
     if (response.success) {
+      toast({
+        title: "Yay Yay Yay",
+        description: "Successfully created a sentence",
+      })
       router.push("/dashboard")
     } else {
-      console.error("Failed to create sentence: ", response.error)
+      toast({
+        variant: "destructive",
+        title: "Nein Nein Nein",
+        description: response.error,
+      })
     }
   }
 

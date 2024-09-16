@@ -38,8 +38,10 @@ export default async function createSentence(data: Data) {
 
   if (!user) return { error: "User not found" }
 
+  if (!person?.id) return { error: "Person not found. Now stop tempering with the URL you little shit" }
+  
   const insertedSentence = await db.insert(sentences).values({
-    personId: person?.id ?? 0,
+    personId: person.id,
     sentence,
     sentenceCount,
     elapsedTime,
