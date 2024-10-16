@@ -24,6 +24,7 @@ import { useState } from "react"
 import { emailRegister } from "@/server/actions/email-register"
 import SuccessAlert from "@/components/alerts/success-alert"
 import ErrorAlert from "@/components/alerts/error-alert"
+import InfoBanner from "./InfoBanner"
 
 export default function RegisterForm() {
   const [error, setError] = useState("")
@@ -46,7 +47,8 @@ export default function RegisterForm() {
   })
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    execute(values)
+    return;
+    //execute(values)
   }
 
   return (
@@ -57,6 +59,7 @@ export default function RegisterForm() {
       backButtonLabel="Login to existing account"
       showSocials
     >
+      <InfoBanner text={"Please use Google/GitHub. Email registeration unavailable!"}/>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -113,7 +116,10 @@ export default function RegisterForm() {
           <SuccessAlert message={success} />
           <ErrorAlert message={error} />
           <div className="mt-5">
-            <Button disabled={true} className={cn("w-full", status === "executing" ? "animate-pulse" : "")}>
+            <Button
+              disabled={true}
+              className={cn("w-full", status === "executing" ? "animate-pulse" : "")}
+            >
               Register
             </Button>
           </div>
