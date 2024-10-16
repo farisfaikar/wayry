@@ -113,7 +113,7 @@ export default function RegisterForm() {
           <SuccessAlert message={success} />
           <ErrorAlert message={error} />
           <div className="mt-5">
-            <Button className={cn("w-full", status === "executing" ? "animate-pulse" : "")}>
+            <Button disabled={true} className={cn("w-full", status === "executing" ? "animate-pulse" : "")}>
               Register
             </Button>
           </div>
