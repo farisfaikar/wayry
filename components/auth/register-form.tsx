@@ -24,7 +24,7 @@ import { useState } from "react"
 import { emailRegister } from "@/server/actions/email-register"
 import SuccessAlert from "@/components/alerts/success-alert"
 import ErrorAlert from "@/components/alerts/error-alert"
-import InfoBanner from "./InfoBanner"
+import WarningAlert from "../alerts/warning-alert"
 
 export default function RegisterForm() {
   const [error, setError] = useState("")
@@ -59,7 +59,9 @@ export default function RegisterForm() {
       backButtonLabel="Login to existing account"
       showSocials
     >
-      <InfoBanner text={"Please use Google/GitHub. Email registeration unavailable!"}/>
+      
+
+      <WarningAlert message={`Please register via Google/GitHub. Email registration currently unavailable!`}/>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
