@@ -16,7 +16,6 @@ We recommend upgrading to the latest version for the most secure experience.
 If you discover a security vulnerability in this project, please follow these steps:
 
 1. **Report Vulnerability**: Report security vulnerabilities by contacting:
-   - **Sarthak Sachdev**
    - **Website**: [Faris Faikar](https://farisfaikar.vercel.app/)
    - **LinkedIn**: [@farisfaikar](https://www.linkedin.com/in/farisfaikar/)
    - **Twitter**: [@farisfaikar_0](https://x.com/farisfaikar_0/)
