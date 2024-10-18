@@ -24,7 +24,7 @@ import { useState } from "react"
 import { emailRegister } from "@/server/actions/email-register"
 import SuccessAlert from "@/components/alerts/success-alert"
 import ErrorAlert from "@/components/alerts/error-alert"
-import WarningAlert from "../alerts/warning-alert"
+import WarningAlert from "@/components/alerts/warning-alert"
 
 export default function RegisterForm() {
   const [error, setError] = useState("")
@@ -47,7 +47,7 @@ export default function RegisterForm() {
   })
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    return;
+    return
     //execute(values)
   }
 
@@ -59,9 +59,9 @@ export default function RegisterForm() {
       backButtonLabel="Login to existing account"
       showSocials
     >
-      
-
-      <WarningAlert message={`Please register via Google/GitHub. Email registration currently unavailable!`}/>
+      <WarningAlert
+        message={`Please register via Google/GitHub. Email registration currently unavailable!`}
+      />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -71,7 +71,7 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="John Doe" type="name" />
+                  <Input {...field} placeholder="John Doe" type="name" disabled />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -90,6 +90,7 @@ export default function RegisterForm() {
                     placeholder="johndoe@gmail.com"
                     type="email"
                     autoComplete="email"
+                    disabled
                   />
                 </FormControl>
                 <FormDescription />
@@ -108,6 +109,7 @@ export default function RegisterForm() {
                     {...field}
                     placeholder="********"
                     autoComplete="current-password"
+                    disabled
                   />
                 </FormControl>
                 <FormDescription />
