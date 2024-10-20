@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Check, ChevronsUpDown, Loader, AlertCircle } from "lucide-react"
+import { Check, ChevronsUpDown, AlertCircle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -16,6 +16,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import getPeople from "@/server/actions/get-people"
 import { CreatePersonDialog } from "@/components/dialogs/create-person-dialog"
+import Loader from "@/components/Loader"  // Import the custom Loader component
 
 type PeopleDropdownInputProps = {
   value: string
@@ -48,11 +49,7 @@ export default function PeopleDropdownInput({ value, onChange }: PeopleDropdownI
   }, [])
 
   if (loading) {
-    return (
-      <Button variant="outline" role="button" className="w-full justify-center gap-2" disabled>
-        <Loader className="animate-spin" /> Loading...
-      </Button>
-    )
+    return <Loader />  // Use the custom Loader component here
   }
 
   if (error) {

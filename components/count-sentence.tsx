@@ -6,13 +6,14 @@ import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import { useState, useEffect, useRef } from "react"
-import { Play, Pause, RotateCcw, Save, Loader } from "lucide-react"
+import { Play, Pause, RotateCcw, Save } from "lucide-react"
 import createSentence from "@/server/actions/create-sentence"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useSession } from "next-auth/react"
 import CountButton from "./count-button"
 import { MoveLeft } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import Loader from "@/components/Loader" 
 
 type CountSentenceProps = {
   className?: string
@@ -64,6 +65,9 @@ export default function CountSentence({ className = "" }: CountSentenceProps) {
     }
   }, [sentenceCount, elapsedTime])
 
+  if (isLoading) {
+    return <Loader />  // Use the custom Loader component here
+  }
   // Function to handle button click
   const handleButtonClick = () => {
     setSentenceCount((prevCount) => prevCount + 1)
@@ -190,7 +194,7 @@ export default function CountSentence({ className = "" }: CountSentenceProps) {
         >
           {isLoading ? (
             <>
-              <Loader className="animate-spin" /> Saving...
+              <Loader /> Saving...
             </>
           ) : (
             <>
