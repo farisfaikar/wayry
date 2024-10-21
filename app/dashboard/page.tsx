@@ -1,20 +1,51 @@
-import getPeopleWithSentences from "@/server/actions/get-people-with-sentences"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { CirclePlus } from "lucide-react"
-import type { Metadata } from "next"
-import SentenceTable from "@/components/sentence-table"
+import { Suspense } from 'react';
+import { use } from 'react';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { CirclePlus } from "lucide-react";
+import type { Metadata } from "next";
+import SentenceTable from "@/components/sentence-table";
+import Loader from "@/components/Loader";
+
+// Server-side action
+import { db } from "@/server";
+import { auth } from "@/server/auth";
+import { users, people } from "@/server/schema";
+import { eq } from "drizzle-orm";
 
 export const metadata: Metadata = {
   title: "What the hell are you looking for?",
   description: "These are just a bunch of useless data.",
+};
+
+async function getPeopleWithSentences() {
+  'use server';
+  
+  const session = await auth();
+  const user = await db.query.users.findFirst({
+    where: eq(users.email, session?.user?.email ?? ""),
+  });
+  
+  if (!user) return { error: "User not found" };
+  
+  const peopleWithSentences = await db.query.people.findMany({
+    where: eq(people.userId, user.id),
+    with: {
+      sentences: true,
+    },
+  });
+  
+  if (peopleWithSentences.length === 0) return { success: [] };
+  
+  return { success: peopleWithSentences };
 }
 
-export default async function DashboardPage() {
-  const { error, success } = await getPeopleWithSentences()
+function DashboardContent() {
+  const peopleWithSentencesPromise = getPeopleWithSentences();
+  const { error, success } = use(peopleWithSentencesPromise);
 
   if (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 
   // Check if success is empty
@@ -30,10 +61,21 @@ export default async function DashboardPage() {
           </Link>
         </Button>
       </div>
-    )
+    );
   }
 
   if (success) {
-    return <SentenceTable people={success} />
+    return <SentenceTable people={success} />;
   }
+
+  // This shouldn't be reached due to Suspense, but included for completeness
+  return null;
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <DashboardContent />
+    </Suspense>
+  );
 }
