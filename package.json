@@ -2,6 +2,7 @@
   "name": "wayry",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev & npx next-video sync -w",
     "build": "next build",
@@ -36,6 +37,7 @@
     "drizzle-orm": "^0.33.0",
     "framer-motion": "^11.5.3",
     "lucide-react": "^0.438.0",
+    "neon": "^2.0.0",
     "next": "14.2.7",
     "next-auth": "^5.0.0-beta.20",
     "next-safe-action": "^6.2.0",
@@ -53,7 +55,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18",
     "drizzle-kit": "^0.24.2",
     "eslint": "^8.57.0",
@@ -64,7 +66,7 @@
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5"
   }
 }
