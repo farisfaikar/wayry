@@ -200,7 +200,7 @@ export default function CountSentence({ className = "" }: CountSentenceProps) {
           )}
         </Button>
       </div>
-      <Button variant="link" className="mt-5 flex gap-2" onClick={goToHome}>
+      <Button variant="link" size="noSidePadding" className="mt-5 flex gap-2" onClick={goToHome}>
         <MoveLeft /> Back
       </Button>
     </div>
