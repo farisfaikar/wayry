@@ -1,18 +1,22 @@
 import { badgeVariants } from "@/components/ui/badge"
 import Link from "next/link"
-import { MoveUpRight, Menu, SquareArrowOutUpRight } from "lucide-react"
+import { MoveUpRight, Menu } from "lucide-react"
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-  SheetFooter,
 } from "@/components/ui/sheet"
 import { auth } from "@/server/auth"
 import AvatarDropdown from "./avatar-dropdown"
 
-export default async function Navbar() {
+interface NavbarProps {
+  toggleTheme: () => void;
+  currentTheme: string;
+}
+
+export default async function Navbar({ toggleTheme, currentTheme }: NavbarProps) {
   const session = await auth()
 
   type Navs = {
@@ -104,6 +108,13 @@ export default async function Navbar() {
               {nav.title}
             </Link>
           ))}
+          {/* Theme toggle button */}
+          <button
+            onClick={toggleTheme}
+            className="text-neutral-300"
+          >
+            Switch to {currentTheme === "dark" ? "Light" : "Dark"} Mode
+          </button>
           {!session ? (
             <Link key="/auth/login" href="/auth/login" className="text-neutral-300">
               Login
